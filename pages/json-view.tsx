@@ -8,7 +8,7 @@ import { JsonView } from "../components/JsonView";
 
 type State = {
   json: string;
-  data: any;
+  data?: any;
   valid: boolean;
   error?: Error;
 };
@@ -34,11 +34,14 @@ const _: NextPage = () => {
             const json = event.target.value;
 
             try {
-              setState({ json, data: JSON.parse(json), valid: true });
+              setState({
+                json,
+                data: JSON.parse(json),
+                valid: true,
+              });
             } catch (e) {
               setState({
                 json,
-                data: undefined,
                 valid: false,
                 error: e as Error,
               });
