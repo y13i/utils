@@ -81,7 +81,7 @@ const _: NextPage = () => {
 
               setState({
                 ...base,
-                json: JSON.stringify(data[0]),
+                json: JSON.stringify(data[0], undefined, 2),
                 data,
               });
             } catch (e) {
