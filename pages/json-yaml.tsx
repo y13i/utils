@@ -9,8 +9,8 @@ type State = {
   json: string;
   yaml: string;
   data?: any;
-  lastModified?: "json" | "yaml";
-  error?: Error;
+  jsonParseError?: Error;
+  yamlParseError?: Error;
 };
 
 const _: NextPage = () => {
@@ -27,32 +27,25 @@ const _: NextPage = () => {
           label="JSON"
           fullWidth
           multiline
-          error={state.lastModified === "json" && !!state.error}
-          helperText={
-            state.lastModified === "json" ? state.error?.toString() : undefined
-          }
+          error={!!state.jsonParseError}
+          helperText={state.jsonParseError?.toString()}
           value={state.json}
           onChange={(event) => {
             const json = event.target.value;
-
-            const base = {
-              json,
-              lastModified: "json",
-            } as const;
 
             try {
               const data = JSON.parse(json);
 
               setState({
-                ...base,
+                json,
                 yaml: dump(data),
                 data,
               });
             } catch (e) {
               setState({
-                ...base,
+                json,
                 yaml: state.yaml,
-                error: e as Error,
+                jsonParseError: e as Error,
               });
             }
           }}
@@ -63,32 +56,25 @@ const _: NextPage = () => {
           label="YAML"
           fullWidth
           multiline
-          error={state.lastModified === "yaml" && !!state.error}
-          helperText={
-            state.lastModified === "yaml" ? state.error?.toString() : undefined
-          }
+          error={!!state.yamlParseError}
+          helperText={state.yamlParseError?.toString()}
           value={state.yaml}
           onChange={(event) => {
             const yaml = event.target.value;
-
-            const base = {
-              yaml,
-              lastModified: "yaml",
-            } as const;
 
             try {
               const data = loadAll(yaml);
 
               setState({
-                ...base,
+                yaml,
                 json: JSON.stringify(data[0], undefined, 2),
                 data,
               });
             } catch (e) {
               setState({
-                ...base,
+                yaml,
                 json: state.json,
-                error: e as Error,
+                yamlParseError: e as Error,
               });
             }
           }}
