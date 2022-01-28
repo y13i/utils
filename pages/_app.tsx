@@ -132,6 +132,21 @@ function App({ Component, pageProps }: AppProps) {
                   <ListItemText primary="JSON/YAML" />
                 </ListItem>
               </Link>
+              <Link href="/base64" passHref>
+                <ListItem button>
+                  <Tooltip
+                    title="Base64"
+                    componentsProps={{
+                      tooltip: { sx: { ...(open && { display: "none" }) } },
+                    }}
+                  >
+                    <ListItemIcon>
+                      <CodeIcon />
+                    </ListItemIcon>
+                  </Tooltip>
+                  <ListItemText primary="Base64" />
+                </ListItem>
+              </Link>
             </List>
           </Drawer>
           <Box component="main" sx={{ px: 3, py: 12, flexGrow: 1 }}>

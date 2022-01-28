@@ -1,5 +1,5 @@
 import { compressAsync, decompressAsync } from "lzutf8";
-import base64url from "base64url";
+import { Base64 } from "js-base64";
 
 export async function encode(data: any): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -10,7 +10,7 @@ export async function encode(data: any): Promise<string> {
         if (error) {
           reject(error);
         } else {
-          resolve(base64url.encode(compressedDataJson));
+          resolve(Base64.encodeURI(compressedDataJson));
         }
       }
     );
@@ -20,7 +20,7 @@ export async function encode(data: any): Promise<string> {
 export async function decode(data: string): Promise<unknown> {
   return new Promise((resolve, reject) => {
     decompressAsync(
-      base64url.decode(data),
+      Base64.decode(data),
       { inputEncoding: "BinaryString" },
       (dataJson, error) => {
         if (error) {
