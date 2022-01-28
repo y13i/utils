@@ -26,7 +26,11 @@ export async function decode(data: string): Promise<unknown> {
         if (error) {
           reject(error);
         } else {
-          resolve(JSON.parse(dataJson));
+          try {
+            resolve(JSON.parse(dataJson));
+          } catch (e) {
+            reject(e);
+          }
         }
       }
     );
