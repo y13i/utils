@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { NextPage } from "next";
 import { dump, load } from "js-yaml";
-import { compressAsync, decompressAsync } from "lzutf8";
-import base64url from "base64url";
 
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 
+import { encode, decode } from "../utils/codec";
 import { JsonView } from "../components/JsonView";
 
 type State = {
@@ -33,49 +32,31 @@ const _: NextPage = () => {
   };
 
   useEffect(() => {
+    if (!window) return;
+
     const encodedData = new URL(window.location.href).searchParams?.get("d");
 
     if (!encodedData) return;
 
-    decompressAsync(
-      base64url.decode(encodedData),
-      { inputEncoding: "BinaryString" },
-      (dataJson, error) => {
-        if (error) {
-          console.error(error);
-        } else {
-          updateData(JSON.parse(dataJson));
-        }
-      }
-    );
-
-    updateData({});
+    (async () => {
+      updateData(await decode(encodedData));
+    })();
   }, []);
 
   useEffect(() => {
-    if (state.data === null || state.data === undefined) return;
+    if (state.data === null || state.data === undefined || !window) return;
 
-    compressAsync(
-      JSON.stringify(state.data),
-      { outputEncoding: "BinaryString" },
-      (compressedDataJson, error) => {
-        if (error) {
-          console.error(error);
-        } else {
-          if (window) {
-            const url = new URL(window.location.href);
-            const searchParams = new URLSearchParams();
-            searchParams.set("d", base64url.encode(compressedDataJson));
-            const newUrl =
-              url.origin + url.pathname + "?" + searchParams.toString();
+    (async () => {
+      const encodedData = await encode(state.data);
+      const url = new URL(window.location.href);
+      const searchParams = new URLSearchParams();
+      searchParams.set("d", encodedData);
+      const newUrl = url.origin + url.pathname + "?" + searchParams.toString();
 
-            if (newUrl.length < 2048) {
-              history.replaceState(undefined, "", newUrl);
-            }
-          }
-        }
+      if (newUrl.length < 2048) {
+        history.replaceState(undefined, "", newUrl);
       }
-    );
+    })();
   }, [state.data]);
 
   return (
