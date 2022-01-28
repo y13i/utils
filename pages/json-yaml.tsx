@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { NextPage } from "next";
-import { dump, loadAll } from "js-yaml";
+import { dump, load } from "js-yaml";
 
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
+
+import { InteractionProps } from "react-json-view";
+
+import { JsonView } from "../components/JsonView";
 
 type State = {
   json: string;
@@ -20,9 +24,17 @@ const _: NextPage = () => {
     data: undefined,
   });
 
+  const handleViewerUpdate = (p: InteractionProps) => {
+    setState({
+      json: JSON.stringify(p.updated_src, undefined, 2),
+      yaml: dump(p.updated_src),
+      data: p.updated_src,
+    });
+  };
+
   return (
     <Grid container spacing={2}>
-      <Grid item xs={6}>
+      <Grid item xs={12} md={6} xl={4}>
         <TextField
           label="JSON"
           fullWidth
@@ -51,7 +63,7 @@ const _: NextPage = () => {
           }}
         />
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={12} md={6} xl={4}>
         <TextField
           label="YAML"
           fullWidth
@@ -63,11 +75,11 @@ const _: NextPage = () => {
             const yaml = event.target.value;
 
             try {
-              const data = loadAll(yaml);
+              const data = load(yaml);
 
               setState({
                 yaml,
-                json: JSON.stringify(data[0], undefined, 2),
+                json: JSON.stringify(data, undefined, 2),
                 data,
               });
             } catch (e) {
@@ -78,6 +90,14 @@ const _: NextPage = () => {
               });
             }
           }}
+        />
+      </Grid>
+      <Grid item xs={12} md={6} xl={4}>
+        <JsonView
+          src={state.data}
+          onAdd={handleViewerUpdate}
+          onEdit={handleViewerUpdate}
+          onDelete={handleViewerUpdate}
         />
       </Grid>
     </Grid>
