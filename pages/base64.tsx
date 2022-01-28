@@ -58,10 +58,7 @@ const _: NextPage = () => {
   }, [state.data]);
 
   return (
-    <WithHead
-      title="JSON/YAML"
-      description="Converts JSON/YAML bidirectionally."
-    >
+    <WithHead title="Base64" description="Encode/decode Base64.">
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
           <CodeTextField
