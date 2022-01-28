@@ -18,6 +18,8 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import Divider from "@mui/material/Divider";
+import Tooltip from "@mui/material/Tooltip";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
@@ -113,12 +115,20 @@ function App({ Component, pageProps }: AppProps) {
                 <ChevronLeftIcon />
               </IconButton>
             </Toolbar>
+            <Divider />
             <List>
               <Link href="/json-yaml" passHref>
                 <ListItem button>
-                  <ListItemIcon>
-                    <CodeIcon />
-                  </ListItemIcon>
+                  <Tooltip
+                    title="JSON/YAML"
+                    componentsProps={{
+                      tooltip: { sx: { ...(open && { display: "none" }) } },
+                    }}
+                  >
+                    <ListItemIcon>
+                      <CodeIcon />
+                    </ListItemIcon>
+                  </Tooltip>
                   <ListItemText primary="JSON/YAML" />
                 </ListItem>
               </Link>
