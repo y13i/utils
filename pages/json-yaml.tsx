@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NextPage } from "next";
 import { dump, load } from "js-yaml";
+import { compressAsync, decompressAsync } from "lzutf8";
+import base64url from "base64url";
 
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-
-import { InteractionProps } from "react-json-view";
 
 import { JsonView } from "../components/JsonView";
 
@@ -24,13 +24,59 @@ const _: NextPage = () => {
     data: undefined,
   });
 
-  const handleViewerUpdate = (p: InteractionProps) => {
+  const updateData = (data: any, json?: string, yaml?: string) => {
     setState({
-      json: JSON.stringify(p.updated_src, undefined, 2),
-      yaml: dump(p.updated_src),
-      data: p.updated_src,
+      json: json ?? JSON.stringify(data, undefined, 2),
+      yaml: yaml ?? dump(data),
+      data,
     });
   };
+
+  useEffect(() => {
+    const encodedData = new URL(window.location.href).searchParams?.get("d");
+
+    if (!encodedData) return;
+
+    decompressAsync(
+      base64url.decode(encodedData),
+      { inputEncoding: "BinaryString" },
+      (dataJson, error) => {
+        if (error) {
+          console.error(error);
+        } else {
+          updateData(JSON.parse(dataJson));
+        }
+      }
+    );
+
+    updateData({});
+  }, []);
+
+  useEffect(() => {
+    if (state.data === null || state.data === undefined) return;
+
+    compressAsync(
+      JSON.stringify(state.data),
+      { outputEncoding: "BinaryString" },
+      (compressedDataJson, error) => {
+        if (error) {
+          console.error(error);
+        } else {
+          if (window) {
+            const url = new URL(window.location.href);
+            const searchParams = new URLSearchParams();
+            searchParams.set("d", base64url.encode(compressedDataJson));
+            const newUrl =
+              url.origin + url.pathname + "?" + searchParams.toString();
+
+            if (newUrl.length < 2048) {
+              history.replaceState(undefined, "", newUrl);
+            }
+          }
+        }
+      }
+    );
+  }, [state.data]);
 
   return (
     <Grid container spacing={2}>
@@ -47,12 +93,7 @@ const _: NextPage = () => {
 
             try {
               const data = JSON.parse(json);
-
-              setState({
-                json,
-                yaml: dump(data),
-                data,
-              });
+              updateData(data, json);
             } catch (e) {
               setState({
                 json,
@@ -76,12 +117,7 @@ const _: NextPage = () => {
 
             try {
               const data = load(yaml);
-
-              setState({
-                yaml,
-                json: JSON.stringify(data, undefined, 2),
-                data,
-              });
+              updateData(data, undefined, yaml);
             } catch (e) {
               setState({
                 yaml,
@@ -94,10 +130,10 @@ const _: NextPage = () => {
       </Grid>
       <Grid item xs={12} md={6} xl={4}>
         <JsonView
-          src={state.data}
-          onAdd={handleViewerUpdate}
-          onEdit={handleViewerUpdate}
-          onDelete={handleViewerUpdate}
+          src={typeof state.data === "object" ? state.data : {}}
+          onAdd={(p) => updateData(p.updated_src)}
+          onEdit={(p) => updateData(p.updated_src)}
+          onDelete={(p) => updateData(p.updated_src)}
         />
       </Grid>
     </Grid>
