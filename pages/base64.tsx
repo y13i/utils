@@ -18,14 +18,12 @@ const _: NextPage = () => {
   const [state, setState] = useState<State>({
     plain: "",
     base64: "",
-    data: "",
   });
 
-  const updateData = (data: string, plain?: string, base64?: string) => {
+  const updateData = (plain: string, base64?: string) => {
     setState({
-      data,
-      plain: plain ?? data,
-      base64: base64 ?? Base64.encode(data),
+      plain,
+      base64: base64 ?? Base64.encode(plain),
     });
   };
 
@@ -42,10 +40,10 @@ const _: NextPage = () => {
   }, []);
 
   useEffect(() => {
-    if (state.data === null || state.data === undefined || !window) return;
+    if (!window || state.plain.length === 0) return;
 
     (async () => {
-      const encodedData = await encode(state.data);
+      const encodedData = await encode(state.plain);
       const url = new URL(window.location.href);
       const searchParams = new URLSearchParams();
       searchParams.set("d", encodedData);
@@ -55,7 +53,7 @@ const _: NextPage = () => {
         history.replaceState(undefined, "", newUrl);
       }
     })();
-  }, [state.data]);
+  }, [state.plain]);
 
   return (
     <WithHead title="Base64" description="Encode/decode Base64.">
@@ -65,8 +63,7 @@ const _: NextPage = () => {
             label="Plain Text"
             value={state.plain}
             onChange={(event) => {
-              const plain = event.target.value;
-              updateData(plain, plain);
+              updateData(event.target.value);
             }}
           />
         </Grid>
@@ -80,8 +77,8 @@ const _: NextPage = () => {
               const base64 = event.target.value;
 
               try {
-                const data = Base64.decode(base64);
-                updateData(data, undefined, base64);
+                const plain = Base64.decode(base64);
+                updateData(plain, base64);
               } catch (e) {
                 setState({
                   base64,
