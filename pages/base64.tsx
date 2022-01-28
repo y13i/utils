@@ -10,7 +10,6 @@ import { WithHead } from "../components/WithHead";
 type State = {
   plain: string;
   base64: string;
-  data?: string;
   decodeError?: Error;
 };
 
