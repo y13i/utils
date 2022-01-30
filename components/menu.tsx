@@ -8,10 +8,10 @@ import Tooltip from "@mui/material/Tooltip";
 
 import { PageAttribute } from "../utils";
 
-import { pageAttribute as base64 } from "./base64";
-import { pageAttribute as jsonYaml } from "./json-yaml";
-import { pageAttribute as password } from "./password";
-import { pageAttribute as uuid } from "./uuid";
+import { pageAttribute as base64 } from "../pages/base64";
+import { pageAttribute as jsonYaml } from "../pages/json-yaml";
+import { pageAttribute as password } from "../pages/password";
+import { pageAttribute as uuid } from "../pages/uuid";
 
 const pageAttributes: PageAttribute[] = [base64, jsonYaml, password, uuid];
 
