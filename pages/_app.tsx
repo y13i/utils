@@ -1,11 +1,12 @@
+import { useState } from "react";
+import type { AppProps } from "next/app";
+import Link from "next/link";
+import { QueryClient, QueryClientProvider } from "react-query";
+
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
-
-import { useState } from "react";
-import type { AppProps } from "next/app";
-import Link from "next/link";
 
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -22,6 +23,8 @@ import HomeIcon from "@mui/icons-material/Home";
 import GitHubIcon from "@mui/icons-material/GitHub";
 
 import { Menu } from "../components/Menu";
+
+const queryClient = new QueryClient();
 
 const drawerWidth = 240;
 
@@ -74,7 +77,7 @@ function App({ Component, pageProps }: AppProps) {
   const toggleDrawer = () => setOpen(!open);
 
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={createTheme()}>
         <Box sx={{ display: "flex" }}>
           <CssBaseline />
@@ -131,7 +134,7 @@ function App({ Component, pageProps }: AppProps) {
           </Box>
         </Box>
       </ThemeProvider>
-    </>
+    </QueryClientProvider>
   );
 }
 
