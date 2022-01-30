@@ -13,7 +13,6 @@
     "@fontsource/roboto": "4.5.1",
     "@mui/icons-material": "5.3.1",
     "@mui/material": "5.3.1",
-    "@types/js-yaml": "4.0.5",
     "js-base64": "^3.7.2",
     "js-yaml": "4.1.0",
     "json-url": "3.0.0",
@@ -21,11 +20,14 @@
     "next": "12.0.9",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-json-view": "1.21.3"
+    "react-json-view": "1.21.3",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@types/js-yaml": "4.0.5",
     "@types/node": "17.0.12",
     "@types/react": "17.0.38",
+    "@types/uuid": "^8.3.4",
     "eslint": "8.7.0",
     "eslint-config-next": "12.0.9",
     "typescript": "4.5.5"
