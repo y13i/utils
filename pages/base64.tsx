@@ -59,6 +59,7 @@ const _: NextPage = () => {
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
           <CodeTextField
+            multiline
             label="Plain Text"
             value={state.plain}
             onChange={(event) => {
@@ -68,6 +69,7 @@ const _: NextPage = () => {
         </Grid>
         <Grid item xs={12} md={6}>
           <CodeTextField
+            multiline
             label="Base64 Encoded"
             error={!!state.decodeError}
             helperText={state.decodeError?.toString()}

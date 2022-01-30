@@ -68,6 +68,7 @@ const _: NextPage = () => {
       <Grid container spacing={3}>
         <Grid item xs={12} md={6} xl={4}>
           <CodeTextField
+            multiline
             label="JSON"
             error={!!state.jsonParseError}
             helperText={state.jsonParseError?.toString()}
@@ -90,6 +91,7 @@ const _: NextPage = () => {
         </Grid>
         <Grid item xs={12} md={6} xl={4}>
           <CodeTextField
+            multiline
             label="YAML"
             error={!!state.yamlParseError}
             helperText={state.yamlParseError?.toString()}
