@@ -66,7 +66,7 @@ const _: NextPage = () => {
               } else if (errorIpv6or4) {
                 return (errorIpv6or4 as Error)?.toString();
               } else {
-                return ipv6or4;
+                return ipv6or4 ?? "";
               }
             })()}
             error={!!errorIpv6or4}
@@ -84,7 +84,7 @@ const _: NextPage = () => {
               } else if (errorIpv4) {
                 return (errorIpv4 as Error)?.toString();
               } else {
-                return ipv4;
+                return ipv4 ?? "";
               }
             })()}
             error={!!errorIpv4}
