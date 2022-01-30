@@ -3,11 +3,20 @@ import { NextPage } from "next";
 import { dump, load } from "js-yaml";
 
 import Grid from "@mui/material/Grid";
+import CodeIcon from "@mui/icons-material/Code";
 
 import { encode, decode } from "../utils";
 import { CodeTextField } from "../components/CodeTextField";
 import { JsonView } from "../components/JsonView";
 import { WithHead } from "../components/WithHead";
+import { PageAttribute } from "../utils";
+
+export const pageAttribute: PageAttribute = {
+  title: "JSON/YAML",
+  description: "Converts JSON/YAML bidirectionally.",
+  path: "/json-yaml",
+  icon: <CodeIcon />,
+};
 
 type State = {
   json: string;
@@ -61,10 +70,7 @@ const _: NextPage = () => {
   }, [state.data]);
 
   return (
-    <WithHead
-      title="JSON/YAML"
-      description="Converts JSON/YAML bidirectionally."
-    >
+    <WithHead {...pageAttribute}>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6} xl={4}>
           <CodeTextField

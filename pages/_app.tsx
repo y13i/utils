@@ -14,16 +14,12 @@ import Box from "@mui/material/Box";
 import BaseDrawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
-import Tooltip from "@mui/material/Tooltip";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
-import CodeIcon from "@mui/icons-material/Code";
+
+import { Menu } from "./_menu";
 
 const drawerWidth = 240;
 
@@ -116,38 +112,7 @@ function App({ Component, pageProps }: AppProps) {
               </IconButton>
             </Toolbar>
             <Divider />
-            <List>
-              <Link href="/json-yaml" passHref>
-                <ListItem button>
-                  <Tooltip
-                    title="JSON/YAML"
-                    componentsProps={{
-                      tooltip: { sx: { ...(open && { display: "none" }) } },
-                    }}
-                  >
-                    <ListItemIcon>
-                      <CodeIcon />
-                    </ListItemIcon>
-                  </Tooltip>
-                  <ListItemText primary="JSON/YAML" />
-                </ListItem>
-              </Link>
-              <Link href="/base64" passHref>
-                <ListItem button>
-                  <Tooltip
-                    title="Base64"
-                    componentsProps={{
-                      tooltip: { sx: { ...(open && { display: "none" }) } },
-                    }}
-                  >
-                    <ListItemIcon>
-                      <CodeIcon />
-                    </ListItemIcon>
-                  </Tooltip>
-                  <ListItemText primary="Base64" />
-                </ListItem>
-              </Link>
-            </List>
+            <Menu disableTooltip={open} />
           </Drawer>
           <Box component="main" sx={{ px: 3, py: 10, flexGrow: 1 }}>
             <Component {...pageProps} />

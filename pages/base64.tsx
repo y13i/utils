@@ -2,10 +2,19 @@ import { useState, useEffect } from "react";
 import { NextPage } from "next";
 import { Base64 } from "js-base64";
 import Grid from "@mui/material/Grid";
+import CodeIcon from "@mui/icons-material/Code";
 
 import { encode, decode } from "../utils";
 import { CodeTextField } from "../components/CodeTextField";
 import { WithHead } from "../components/WithHead";
+import { PageAttribute } from "../utils";
+
+export const pageAttribute: PageAttribute = {
+  title: "Base64",
+  description: "Encode/decode Base64.",
+  path: "/base64",
+  icon: <CodeIcon />,
+};
 
 type State = {
   plain: string;
@@ -55,7 +64,7 @@ const _: NextPage = () => {
   }, [state.plain]);
 
   return (
-    <WithHead title="Base64" description="Encode/decode Base64.">
+    <WithHead {...pageAttribute}>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
           <CodeTextField

@@ -1,5 +1,6 @@
 import { compressAsync, decompressAsync } from "lzutf8";
 import { Base64 } from "js-base64";
+import { ReactNode } from "react";
 
 export async function encode(data: any): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -36,3 +37,10 @@ export async function decode(data: string): Promise<unknown> {
     );
   });
 }
+
+export type PageAttribute = {
+  title: string;
+  description: string;
+  path: string;
+  icon: ReactNode;
+};
