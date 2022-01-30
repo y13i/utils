@@ -3,7 +3,7 @@ import { NextPage } from "next";
 import { Base64 } from "js-base64";
 import Grid from "@mui/material/Grid";
 
-import { encode, decode } from "../utils/codec";
+import { encode, decode } from "../utils";
 import { CodeTextField } from "../components/CodeTextField";
 import { WithHead } from "../components/WithHead";
 

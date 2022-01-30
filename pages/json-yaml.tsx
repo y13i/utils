@@ -4,7 +4,7 @@ import { dump, load } from "js-yaml";
 
 import Grid from "@mui/material/Grid";
 
-import { encode, decode } from "../utils/codec";
+import { encode, decode } from "../utils";
 import { CodeTextField } from "../components/CodeTextField";
 import { JsonView } from "../components/JsonView";
 import { WithHead } from "../components/WithHead";
