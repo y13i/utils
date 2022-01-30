@@ -149,7 +149,7 @@ function App({ Component, pageProps }: AppProps) {
               </Link>
             </List>
           </Drawer>
-          <Box component="main" sx={{ px: 3, py: 12, flexGrow: 1 }}>
+          <Box component="main" sx={{ px: 3, py: 10, flexGrow: 1 }}>
             <Component {...pageProps} />
           </Box>
         </Box>

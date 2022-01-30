@@ -13,6 +13,7 @@ export const CodeTextField: VFC<TextFieldProps> = (props) => {
   return (
     <TextField
       fullWidth
+      sx={{ my: 1 }}
       InputProps={{
         sx: { fontFamily: "monospace" },
         endAdornment: (
