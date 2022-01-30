@@ -11,6 +11,7 @@ import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import BaseAppBar, { AppBarProps } from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import BaseDrawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
@@ -18,6 +19,7 @@ import Divider from "@mui/material/Divider";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
+import GitHubIcon from "@mui/icons-material/GitHub";
 
 import { Menu } from "../components/menu";
 
@@ -77,7 +79,12 @@ function App({ Component, pageProps }: AppProps) {
         <Box sx={{ display: "flex" }}>
           <CssBaseline />
           <AppBar position="absolute" open={open}>
-            <Toolbar>
+            <Toolbar
+              sx={{
+                pr: "24px", // keep right padding when drawer closed
+                justifyContent: "space-between",
+              }}
+            >
               <IconButton
                 size="large"
                 edge="start"
@@ -91,6 +98,9 @@ function App({ Component, pageProps }: AppProps) {
               >
                 <MenuIcon />
               </IconButton>
+              <Button color="inherit" startIcon={<GitHubIcon />}>
+                Source Code
+              </Button>
             </Toolbar>
           </AppBar>
           <Drawer variant="permanent" open={open}>
