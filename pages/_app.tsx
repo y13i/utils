@@ -98,9 +98,11 @@ function App({ Component, pageProps }: AppProps) {
               >
                 <MenuIcon />
               </IconButton>
-              <Button color="inherit" startIcon={<GitHubIcon />}>
-                Source Code
-              </Button>
+              <Link href="https://github.com/y13i/utils" passHref>
+                <Button color="inherit" startIcon={<GitHubIcon />}>
+                  Source Code
+                </Button>
+              </Link>{" "}
             </Toolbar>
           </AppBar>
           <Drawer variant="permanent" open={open}>
