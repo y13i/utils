@@ -10,9 +10,10 @@ import { PageAttribute } from "../utils";
 
 import { pageAttribute as base64 } from "./base64";
 import { pageAttribute as jsonYaml } from "./json-yaml";
+import { pageAttribute as password } from "./password";
 import { pageAttribute as uuid } from "./uuid";
 
-const pageAttributes: PageAttribute[] = [base64, jsonYaml, uuid];
+const pageAttributes: PageAttribute[] = [base64, jsonYaml, password, uuid];
 
 export const Menu: VFC<{ disableTooltip: boolean }> = (props) => (
   <List>
