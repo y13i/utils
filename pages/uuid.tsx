@@ -38,7 +38,7 @@ const _: NextPage = () => {
       >
         Refresh
       </Button>
-      <Grid container spacing={3}>
+      <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
           {state.uuids.slice(0, count / 2).map((uuid, i) => (
             <CodeTextField disabled value={uuid} key={i} />

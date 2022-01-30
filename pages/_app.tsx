@@ -93,7 +93,7 @@ function App({ Component, pageProps }: AppProps) {
                 onClick={toggleDrawer}
                 sx={{
                   mr: 2,
-                  ...(open && { display: "none" }),
+                  ...(open && { visibility: "hidden" }),
                 }}
               >
                 <MenuIcon />
