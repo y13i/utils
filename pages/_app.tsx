@@ -19,7 +19,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
 
-import { Menu } from "./_menu";
+import { Menu } from "../components/menu";
 
 const drawerWidth = 240;
 
