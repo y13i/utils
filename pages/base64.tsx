@@ -4,10 +4,9 @@ import { Base64 } from "js-base64";
 import Grid from "@mui/material/Grid";
 import CodeIcon from "@mui/icons-material/Code";
 
-import { encode, decode } from "../utils";
 import { CodeTextField } from "../components/CodeTextField";
 import { WithHead } from "../components/WithHead";
-import { PageAttribute } from "../utils";
+import { PageAttribute, encode, decode } from "../utils";
 
 export const pageAttribute: PageAttribute = {
   title: "Base64",

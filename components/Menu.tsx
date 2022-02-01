@@ -8,18 +8,20 @@ import Tooltip from "@mui/material/Tooltip";
 
 import { PageAttribute } from "../utils";
 
-import { pageAttribute as base64 } from "../pages/base64";
 import { pageAttribute as jsonYaml } from "../pages/json-yaml";
+import { pageAttribute as base64 } from "../pages/base64";
 import { pageAttribute as myip } from "../pages/myip";
 import { pageAttribute as password } from "../pages/password";
 import { pageAttribute as uuid } from "../pages/uuid";
+import { pageAttribute as decoji } from "../pages/decoji";
 
 const pageAttributes: PageAttribute[] = [
-  base64,
   jsonYaml,
+  base64,
   myip,
   password,
   uuid,
+  decoji,
 ];
 
 export const Menu: VFC<{ disableTooltip: boolean }> = (props) => (
