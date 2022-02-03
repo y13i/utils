@@ -18,28 +18,19 @@ export const pageAttribute: PageAttribute = {
   icon: <CodeIcon />,
 };
 
-type State = {
-  json: string;
-  yaml: string;
-  data?: any;
-  jsonParseError?: Error;
-  yamlParseError?: Error;
-};
+const jsonStringifyOptions = [undefined, 2] as const;
 
 const _: NextPage = () => {
-  const [state, setState] = useState<State>({
-    json: "",
-    yaml: "",
-    data: undefined,
-  });
+  const [data, setData] = useState<any>({});
+  const [json, setJson] = useState<string>("");
+  const [yaml, setYaml] = useState<string>("");
+  const [errors, setErrors] = useState<{ json?: Error; yaml?: Error }>({});
 
-  const updateData = (data: any, json?: string, yaml?: string) => {
-    setState({
-      json: json ?? JSON.stringify(data, undefined, 2),
-      yaml: yaml ?? dump(data),
-      data,
-    });
-  };
+  function setDataWithRefresh(data: any): void {
+    setData(data);
+    setJson(JSON.stringify(data, ...jsonStringifyOptions));
+    setYaml(dump(data));
+  }
 
   useEffect(() => {
     if (!window) return;
@@ -49,25 +40,33 @@ const _: NextPage = () => {
     if (!encodedData) return;
 
     (async () => {
-      updateData(await decode(encodedData));
+      setData(await decode(encodedData));
     })();
   }, []);
 
   useEffect(() => {
-    if (state.data === null || state.data === undefined || !window) return;
+    if (!window) return;
 
     (async () => {
-      const encodedData = await encode(state.data);
+      const search = await (async () => {
+        if (data === undefined || data === null) {
+          return "";
+        } else {
+          const encodedData = await encode(data);
+          const searchParams = new URLSearchParams();
+          searchParams.set("d", encodedData);
+          return `?${searchParams.toString()}`;
+        }
+      })();
+
       const url = new URL(window.location.href);
-      const searchParams = new URLSearchParams();
-      searchParams.set("d", encodedData);
-      const newUrl = url.origin + url.pathname + "?" + searchParams.toString();
+      const newUrl = url.origin + url.pathname + search;
 
       if (newUrl.length < 2048) {
         history.replaceState(undefined, "", newUrl);
       }
     })();
-  }, [state.data]);
+  }, [data]);
 
   return (
     <WithHead {...pageAttribute}>
@@ -76,21 +75,19 @@ const _: NextPage = () => {
           <CodeTextField
             multiline
             label="JSON"
-            error={!!state.jsonParseError}
-            helperText={state.jsonParseError?.toString()}
-            value={state.json}
+            error={!!errors.json}
+            helperText={errors.json?.toString()}
+            value={json}
             onChange={(event) => {
-              const json = event.target.value;
+              const inputJson = event.target.value;
+              setJson(inputJson);
 
               try {
-                const data = JSON.parse(json);
-                updateData(data, json);
+                const newData = JSON.parse(inputJson);
+                setData(newData);
+                setYaml(dump(newData));
               } catch (e) {
-                setState({
-                  json,
-                  yaml: state.yaml,
-                  jsonParseError: e as Error,
-                });
+                setErrors({ json: e as Error });
               }
             }}
           />
@@ -99,31 +96,29 @@ const _: NextPage = () => {
           <CodeTextField
             multiline
             label="YAML"
-            error={!!state.yamlParseError}
-            helperText={state.yamlParseError?.toString()}
-            value={state.yaml}
+            error={!!errors.yaml}
+            helperText={errors.yaml?.toString()}
+            value={yaml}
             onChange={(event) => {
-              const yaml = event.target.value;
+              const inputYaml = event.target.value;
+              setYaml(inputYaml);
 
               try {
-                const data = load(yaml);
-                updateData(data, undefined, yaml);
+                const newData = load(inputYaml);
+                setData(newData);
+                setJson(JSON.stringify(newData, ...jsonStringifyOptions));
               } catch (e) {
-                setState({
-                  yaml,
-                  json: state.json,
-                  yamlParseError: e as Error,
-                });
+                setErrors({ yaml: e as Error });
               }
             }}
           />
         </Grid>
         <Grid item xs={12} md={6} xl={4}>
           <JsonView
-            src={typeof state.data === "object" ? state.data : {}}
-            onAdd={(p) => updateData(p.updated_src)}
-            onEdit={(p) => updateData(p.updated_src)}
-            onDelete={(p) => updateData(p.updated_src)}
+            src={typeof data === "object" ? data : {}}
+            onAdd={(p) => setDataWithRefresh(p.updated_src)}
+            onEdit={(p) => setDataWithRefresh(p.updated_src)}
+            onDelete={(p) => setDataWithRefresh(p.updated_src)}
           />
         </Grid>
       </Grid>
