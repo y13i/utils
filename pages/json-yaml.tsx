@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
+import { useCallback, useState } from "react";
 import { NextPage } from "next";
 import { dump, load } from "js-yaml";
 
 import Grid from "@mui/material/Grid";
 import CodeIcon from "@mui/icons-material/Code";
 
-import { encode, decode } from "../utils";
 import { CodeTextField } from "../components/CodeTextField";
 import { JsonView } from "../components/JsonView";
 import { WithHead } from "../components/WithHead";
+import { useSearchParamState } from "../hooks/useSearchParamState";
 import { PageAttribute } from "../utils";
 
 export const pageAttribute: PageAttribute = {
@@ -21,52 +21,24 @@ export const pageAttribute: PageAttribute = {
 const jsonStringifyOptions = [undefined, 2] as const;
 
 const _: NextPage = () => {
-  const [data, setData] = useState<any>({});
   const [json, setJson] = useState<string>("");
   const [yaml, setYaml] = useState<string>("");
   const [errors, setErrors] = useState<{ json?: Error; yaml?: Error }>({});
+
+  const [data, setData] = useSearchParamState<any>(
+    {},
+    "d",
+    useCallback((loadedData) => {
+      setJson(JSON.stringify(loadedData, ...jsonStringifyOptions));
+      setYaml(dump(loadedData));
+    }, [])
+  );
 
   function setDataWithRefresh(data: any): void {
     setData(data);
     setJson(JSON.stringify(data, ...jsonStringifyOptions));
     setYaml(dump(data));
   }
-
-  useEffect(() => {
-    if (!window) return;
-
-    const encodedData = new URL(window.location.href).searchParams?.get("d");
-
-    if (!encodedData) return;
-
-    (async () => {
-      setData(await decode(encodedData));
-    })();
-  }, []);
-
-  useEffect(() => {
-    if (!window) return;
-
-    (async () => {
-      const search = await (async () => {
-        if (data === undefined || data === null) {
-          return "";
-        } else {
-          const encodedData = await encode(data);
-          const searchParams = new URLSearchParams();
-          searchParams.set("d", encodedData);
-          return `?${searchParams.toString()}`;
-        }
-      })();
-
-      const url = new URL(window.location.href);
-      const newUrl = url.origin + url.pathname + search;
-
-      if (newUrl.length < 2048) {
-        history.replaceState(undefined, "", newUrl);
-      }
-    })();
-  }, [data]);
 
   return (
     <WithHead {...pageAttribute}>
@@ -86,6 +58,7 @@ const _: NextPage = () => {
                 const newData = JSON.parse(inputJson);
                 setData(newData);
                 setYaml(dump(newData));
+                setErrors({});
               } catch (e) {
                 setErrors({ json: e as Error });
               }
@@ -107,6 +80,7 @@ const _: NextPage = () => {
                 const newData = load(inputYaml);
                 setData(newData);
                 setJson(JSON.stringify(newData, ...jsonStringifyOptions));
+                setErrors({});
               } catch (e) {
                 setErrors({ yaml: e as Error });
               }
