@@ -49,7 +49,7 @@ async function decode(data: string): Promise<unknown> {
 export function useSearchParamState<S>(
   initialState: S | (() => S),
   searchParamName = "d",
-  callback: ReturnType<typeof useCallback>
+  callback?: ReturnType<typeof useCallback>
 ): [S, Dispatch<SetStateAction<S>>] {
   const [data, setData] = useState<S>(initialState);
 
@@ -65,7 +65,10 @@ export function useSearchParamState<S>(
     (async () => {
       const loadedState = (await decode(encodedData)) as S;
       setData(loadedState);
-      callback(loadedState);
+
+      if (callback) {
+        callback(loadedState);
+      }
     })();
   }, [searchParamName, callback]);
 

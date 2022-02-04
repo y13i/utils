@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { NextPage } from "next";
 import { decorate, styles } from "decoji";
 
@@ -7,7 +6,8 @@ import AbcIcon from "@mui/icons-material/Abc";
 
 import { CodeTextField } from "../components/CodeTextField";
 import { WithHead } from "../components/WithHead";
-import { PageAttribute, encode, decode } from "../utils";
+import { PageAttribute } from "../utils";
+import { useSearchParamState } from "../hooks/useSearchParamState";
 
 export const pageAttribute: PageAttribute = {
   title: "Decoji",
@@ -17,38 +17,7 @@ export const pageAttribute: PageAttribute = {
 };
 
 const _: NextPage = () => {
-  const [input, setInput] = useState<string>("");
-
-  useEffect(() => {
-    if (!window) return;
-
-    const encodedData = new URL(window.location.href).searchParams?.get("d");
-
-    if (!encodedData) return;
-
-    (async () => {
-      setInput((await decode(encodedData)) as string);
-    })();
-  }, []);
-
-  useEffect(() => {
-    if (!window) return;
-
-    (async () => {
-      const encodedData = await encode(input);
-      const url = new URL(window.location.href);
-      const searchParams = new URLSearchParams();
-      searchParams.set("d", encodedData);
-      const newUrl =
-        url.origin +
-        url.pathname +
-        (input.length === 0 ? "" : "?" + searchParams.toString());
-
-      if (newUrl.length < 2048) {
-        history.replaceState(undefined, "", newUrl);
-      }
-    })();
-  }, [input]);
+  const [input, setInput] = useSearchParamState<string>("");
 
   return (
     <WithHead {...pageAttribute}>
