@@ -17,7 +17,7 @@ export const pageAttribute: PageAttribute = {
 };
 
 const _: NextPage = () => {
-  const [input, setInput] = useSearchParamState<string>("");
+  const [input, setInput] = useSearchParamState<string>("", "d");
 
   return (
     <WithHead {...pageAttribute}>

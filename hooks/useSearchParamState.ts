@@ -48,23 +48,23 @@ async function decode(data: string): Promise<unknown> {
 
 export function useSearchParamState<S>(
   initialState: S | (() => S),
-  searchParamName = "d",
+  searchParamName: string,
   callback?: ReturnType<typeof useCallback>
 ): [S, Dispatch<SetStateAction<S>>] {
-  const [data, setData] = useState<S>(initialState);
+  const [state, setState] = useState<S>(initialState);
 
   useEffect(() => {
     if (!window) return;
 
-    const encodedData = new URL(window.location.href).searchParams?.get(
+    const encodedState = new URL(window.location.href).searchParams?.get(
       searchParamName
     );
 
-    if (!encodedData) return;
+    if (!encodedState) return;
 
     (async () => {
-      const loadedState = (await decode(encodedData)) as S;
-      setData(loadedState);
+      const loadedState = (await decode(encodedState)) as S;
+      setState(loadedState);
 
       if (callback) {
         callback(loadedState);
@@ -79,12 +79,12 @@ export function useSearchParamState<S>(
       const url = new URL(window.location.href);
 
       const searchParams: URLSearchParamsType = await (async () => {
-        if (data === undefined || data === null) {
+        if (state === undefined || state === null) {
           return url.searchParams;
         } else {
-          const encodedData = await encode(data);
+          const encodedState = await encode(state);
           const newSearchParams = new URLSearchParams(url.searchParams);
-          newSearchParams.set(searchParamName, encodedData);
+          newSearchParams.set(searchParamName, encodedState);
           return newSearchParams;
         }
       })();
@@ -100,7 +100,7 @@ export function useSearchParamState<S>(
         history.replaceState(undefined, "", newUrl);
       }
     })();
-  }, [data, searchParamName]);
+  }, [state, searchParamName]);
 
-  return [data, setData];
+  return [state, setState];
 }
