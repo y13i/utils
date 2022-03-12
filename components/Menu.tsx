@@ -10,6 +10,7 @@ import { PageAttribute } from "../utils";
 
 import { pageAttribute as jsonYaml } from "../pages/json-yaml";
 import { pageAttribute as base64 } from "../pages/base64";
+import { pageAttribute as uriEncode } from "../pages/uri-encode";
 import { pageAttribute as myip } from "../pages/myip";
 import { pageAttribute as password } from "../pages/password";
 import { pageAttribute as uuid } from "../pages/uuid";
@@ -18,6 +19,7 @@ import { pageAttribute as decoji } from "../pages/decoji";
 const pageAttributes: PageAttribute[] = [
   jsonYaml,
   base64,
+  uriEncode,
   myip,
   password,
   uuid,
