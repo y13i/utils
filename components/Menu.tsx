@@ -6,29 +6,11 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Tooltip from "@mui/material/Tooltip";
 
-import { PageAttribute } from "../utils";
-
-import { pageAttribute as jsonYaml } from "../pages/json-yaml";
-import { pageAttribute as base64 } from "../pages/base64";
-import { pageAttribute as uriEncode } from "../pages/uri-encode";
-import { pageAttribute as myip } from "../pages/myip";
-import { pageAttribute as password } from "../pages/password";
-import { pageAttribute as uuid } from "../pages/uuid";
-import { pageAttribute as decoji } from "../pages/decoji";
-
-const pageAttributes: PageAttribute[] = [
-  jsonYaml,
-  base64,
-  uriEncode,
-  myip,
-  password,
-  uuid,
-  decoji,
-];
+import { usePageAttributes } from "../hooks/usePageAttributes";
 
 export const Menu: VFC<{ disableTooltip: boolean }> = (props) => (
   <List>
-    {pageAttributes.map((pageAttribute, i) => (
+    {usePageAttributes().map((pageAttribute, i) => (
       <Link key={i} href={pageAttribute.path} passHref>
         <ListItem button>
           <Tooltip
