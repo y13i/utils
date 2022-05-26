@@ -11,9 +11,7 @@ export const CodeTextField: VFC<TextFieldProps & { monospace?: boolean }> = (
 ) => {
   const monospace = props.monospace ?? true;
 
-  const [copyMessage, setCopyMessage] = useState<
-    "Copy to clipboard" | "Copied!"
-  >("Copy to clipboard");
+  const [copied, setCopied] = useState<boolean>(false);
 
   return (
     <ThemeProvider
@@ -40,17 +38,15 @@ export const CodeTextField: VFC<TextFieldProps & { monospace?: boolean }> = (
               sx={props.multiline ? { alignSelf: "flex-start", mt: 1 } : {}}
             >
               <Tooltip
-                title={copyMessage}
-                onClose={() =>
-                  setTimeout(() => setCopyMessage("Copy to clipboard"), 250)
-                }
+                title={copied ? "Copied!" : "Copy to clipboard"}
+                onClose={() => setTimeout(() => setCopied(false), 250)}
               >
                 <IconButton
-                  aria-label={copyMessage}
+                  aria-label={copied ? "Copied!" : "Copy to clipboard"}
                   onClick={() =>
                     navigator.clipboard
                       .writeText(props?.value as string)
-                      .then(() => setCopyMessage("Copied!"))
+                      .then(() => setCopied(true))
                   }
                   edge="end"
                 >
