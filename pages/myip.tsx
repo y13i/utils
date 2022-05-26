@@ -10,7 +10,7 @@ import WifiIcon from "@mui/icons-material/Wifi";
 
 import { CodeTextField } from "../components/CodeTextField";
 import { WithHead } from "../components/WithHead";
-import { PageAttribute } from "../utils";
+import { PageAttribute } from "../hooks/usePageAttributes";
 
 export const pageAttribute: PageAttribute = {
   title: "My IP",

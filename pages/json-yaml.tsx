@@ -9,7 +9,7 @@ import { CodeTextField } from "../components/CodeTextField";
 import { JsonView } from "../components/JsonView";
 import { WithHead } from "../components/WithHead";
 import { useSearchParamState } from "../hooks/useSearchParamState";
-import { PageAttribute } from "../utils";
+import { PageAttribute } from "../hooks/usePageAttributes";
 
 export const pageAttribute: PageAttribute = {
   title: "JSON/YAML",

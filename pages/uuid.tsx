@@ -9,7 +9,7 @@ import NumbersIcon from "@mui/icons-material/Numbers";
 
 import { CodeTextField } from "../components/CodeTextField";
 import { WithHead } from "../components/WithHead";
-import { PageAttribute } from "../utils";
+import { PageAttribute } from "../hooks/usePageAttributes";
 
 export const pageAttribute: PageAttribute = {
   title: "UUIDv4",

@@ -12,7 +12,7 @@ import CodeIcon from "@mui/icons-material/Code";
 import { CodeTextField } from "../components/CodeTextField";
 import { WithHead } from "../components/WithHead";
 import { useSearchParamState } from "../hooks/useSearchParamState";
-import { PageAttribute } from "../utils";
+import { PageAttribute } from "../hooks/usePageAttributes";
 
 export const pageAttribute: PageAttribute = {
   title: "Encode/decode",

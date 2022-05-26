@@ -14,7 +14,7 @@ import PasswordIcon from "@mui/icons-material/Password";
 
 import { CodeTextField } from "../components/CodeTextField";
 import { WithHead } from "../components/WithHead";
-import { PageAttribute } from "../utils";
+import { PageAttribute } from "../hooks/usePageAttributes";
 
 export const pageAttribute: PageAttribute = {
   title: "Password Generator",

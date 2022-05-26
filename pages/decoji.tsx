@@ -6,7 +6,7 @@ import AbcIcon from "@mui/icons-material/Abc";
 
 import { CodeTextField } from "../components/CodeTextField";
 import { WithHead } from "../components/WithHead";
-import { PageAttribute } from "../utils";
+import { PageAttribute } from "../hooks/usePageAttributes";
 import { useSearchParamState } from "../hooks/useSearchParamState";
 
 export const pageAttribute: PageAttribute = {
