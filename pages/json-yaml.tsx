@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import { NextPage } from "next";
 import { dump, load } from "js-yaml";
+import { useDebouncedCallback } from "use-debounce";
 
 import Grid from "@mui/material/Grid";
 import CodeIcon from "@mui/icons-material/Code";
@@ -10,6 +11,7 @@ import { JsonView } from "../components/JsonView";
 import { WithHead } from "../components/WithHead";
 import { useSearchParamState } from "../hooks/useSearchParamState";
 import { PageAttribute } from "../hooks/usePageAttributes";
+import { debounceWait } from "../src/constants";
 
 export const pageAttribute: PageAttribute = {
   title: "JSON/YAML",
@@ -24,6 +26,28 @@ const _: NextPage = () => {
   const [json, setJson] = useState<string>("");
   const [yaml, setYaml] = useState<string>("");
   const [errors, setErrors] = useState<{ json?: Error; yaml?: Error }>({});
+
+  const parseFromJsonDebounced = useDebouncedCallback((newJson: string) => {
+    try {
+      const newData = JSON.parse(newJson);
+      setData(newData);
+      setYaml(dump(newData));
+      setErrors({});
+    } catch (e) {
+      setErrors({ json: e as Error });
+    }
+  }, debounceWait);
+
+  const parseFromYamlDebounced = useDebouncedCallback((newYaml: string) => {
+    try {
+      const newData = load(newYaml);
+      setData(newData);
+      setJson(JSON.stringify(newData, ...jsonStringifyOptions));
+      setErrors({});
+    } catch (e) {
+      setErrors({ yaml: e as Error });
+    }
+  }, debounceWait);
 
   const [data, setData] = useSearchParamState<any>(
     {},
@@ -51,17 +75,9 @@ const _: NextPage = () => {
             helperText={errors.json?.toString()}
             value={json}
             onChange={(event) => {
-              const inputJson = event.target.value;
-              setJson(inputJson);
-
-              try {
-                const newData = JSON.parse(inputJson);
-                setData(newData);
-                setYaml(dump(newData));
-                setErrors({});
-              } catch (e) {
-                setErrors({ json: e as Error });
-              }
+              const newJson = event.target.value;
+              setJson(newJson);
+              parseFromJsonDebounced(newJson);
             }}
           />
         </Grid>
@@ -73,17 +89,9 @@ const _: NextPage = () => {
             helperText={errors.yaml?.toString()}
             value={yaml}
             onChange={(event) => {
-              const inputYaml = event.target.value;
-              setYaml(inputYaml);
-
-              try {
-                const newData = load(inputYaml);
-                setData(newData);
-                setJson(JSON.stringify(newData, ...jsonStringifyOptions));
-                setErrors({});
-              } catch (e) {
-                setErrors({ yaml: e as Error });
-              }
+              const newYaml = event.target.value;
+              setYaml(newYaml);
+              parseFromYamlDebounced(newYaml);
             }}
           />
         </Grid>

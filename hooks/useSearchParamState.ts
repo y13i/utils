@@ -6,9 +6,10 @@ import {
   SetStateAction,
 } from "react";
 import type { URLSearchParams as URLSearchParamsType } from "url";
-
 import { compressAsync, decompressAsync } from "lzutf8";
 import { Base64 } from "js-base64";
+import { useDebouncedCallback } from "use-debounce";
+import { debounceWait } from "../src/constants";
 
 async function encode(data: any): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -53,6 +54,35 @@ export function useSearchParamState<S>(
 ): [S, Dispatch<SetStateAction<S>>] {
   const [state, setState] = useState<S>(initialState);
 
+  const setSerchParamDebounced = useDebouncedCallback(
+    async (newState: S, searchParamName: string) => {
+      const url = new URL(window.location.href);
+
+      const searchParams: URLSearchParamsType = await (async () => {
+        if (newState === undefined || newState === null) {
+          return url.searchParams;
+        } else {
+          const encodedState = await encode(newState);
+          const newSearchParams = new URLSearchParams(url.searchParams);
+          newSearchParams.set(searchParamName, encodedState);
+          return newSearchParams;
+        }
+      })();
+
+      const searchString = searchParams.toString();
+
+      const newUrl =
+        url.origin +
+        url.pathname +
+        (searchString.length > 0 ? "?" + searchString : "");
+
+      if (newUrl.length < 2048) {
+        history.replaceState(undefined, "", newUrl);
+      }
+    },
+    debounceWait
+  );
+
   useEffect(() => {
     if (!window) return;
 
@@ -74,33 +104,8 @@ export function useSearchParamState<S>(
 
   useEffect(() => {
     if (!window) return;
-
-    (async () => {
-      const url = new URL(window.location.href);
-
-      const searchParams: URLSearchParamsType = await (async () => {
-        if (state === undefined || state === null) {
-          return url.searchParams;
-        } else {
-          const encodedState = await encode(state);
-          const newSearchParams = new URLSearchParams(url.searchParams);
-          newSearchParams.set(searchParamName, encodedState);
-          return newSearchParams;
-        }
-      })();
-
-      const searchString = searchParams.toString();
-
-      const newUrl =
-        url.origin +
-        url.pathname +
-        (searchString.length > 0 ? "?" + searchString : "");
-
-      if (newUrl.length < 2048) {
-        history.replaceState(undefined, "", newUrl);
-      }
-    })();
-  }, [state, searchParamName]);
+    setSerchParamDebounced(state, searchParamName);
+  }, [setSerchParamDebounced, state, searchParamName]);
 
   return [state, setState];
 }

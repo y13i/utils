@@ -1,6 +1,8 @@
 import { useState, useCallback } from "react";
 import { NextPage } from "next";
 import { Base64 } from "js-base64";
+import { useDebouncedCallback } from "use-debounce";
+
 import Grid from "@mui/material/Grid";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -13,6 +15,7 @@ import { CodeTextField } from "../components/CodeTextField";
 import { WithHead } from "../components/WithHead";
 import { useSearchParamState } from "../hooks/useSearchParamState";
 import { PageAttribute } from "../hooks/usePageAttributes";
+import { debounceWait } from "../src/constants";
 
 export const pageAttribute: PageAttribute = {
   title: "Encode/decode",
@@ -30,8 +33,7 @@ const _: NextPage = () => {
 
   const [mode, setMode] = useSearchParamState<typeof modes[number]>(
     modes[0],
-    "m",
-    useCallback((loadedData) => {}, [])
+    "m"
   );
 
   const encode = useCallback(
@@ -63,6 +65,24 @@ const _: NextPage = () => {
     )
   );
 
+  const encodeDebounced = useDebouncedCallback((newPlain) => {
+    try {
+      setEncoded(encode(newPlain));
+      setEncodeError(undefined);
+    } catch (e) {
+      setEncodeError(e as Error);
+    }
+  }, debounceWait);
+
+  const decodeDebounced = useDebouncedCallback((newEncoded) => {
+    try {
+      setPlain(decode(newEncoded));
+      setDecodeError(undefined);
+    } catch (e) {
+      setDecodeError(e as Error);
+    }
+  }, debounceWait);
+
   return (
     <WithHead {...pageAttribute}>
       <FormControl>
@@ -73,13 +93,7 @@ const _: NextPage = () => {
           label="Mode"
           onChange={(event) => {
             setMode(event.target.value as typeof modes[number]);
-
-            try {
-              setEncoded(encode(plain));
-              setEncodeError(undefined);
-            } catch (e) {
-              setEncodeError(e as Error);
-            }
+            encodeDebounced(plain);
           }}
         >
           {modes.map((m) => (
@@ -100,13 +114,8 @@ const _: NextPage = () => {
             onChange={(event) => {
               const newPlain = event.target.value;
 
-              try {
-                setPlain(newPlain);
-                setEncoded(encode(newPlain));
-                setEncodeError(undefined);
-              } catch (e) {
-                setEncodeError(e as Error);
-              }
+              setPlain(newPlain);
+              encodeDebounced(newPlain);
             }}
           />
         </Grid>
@@ -120,13 +129,8 @@ const _: NextPage = () => {
             onChange={(event) => {
               const newEncoded = event.target.value;
 
-              try {
-                setPlain(decode(newEncoded));
-                setEncoded(newEncoded);
-                setDecodeError(undefined);
-              } catch (e) {
-                setDecodeError(e as Error);
-              }
+              setEncoded(newEncoded);
+              decodeDebounced(newEncoded);
             }}
           />
         </Grid>
