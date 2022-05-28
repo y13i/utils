@@ -1,6 +1,7 @@
 import { useState, WheelEventHandler } from "react";
 import { NextPage } from "next";
 import cryptoRandomString, { Options } from "crypto-random-string";
+import { useDebouncedCallback } from "use-debounce";
 
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
@@ -15,6 +16,7 @@ import PasswordIcon from "@mui/icons-material/Password";
 import { CodeTextField } from "../components/CodeTextField";
 import { WithHead } from "../components/WithHead";
 import { PageAttribute } from "../hooks/usePageAttributes";
+import { debounceWait } from "../src/constants";
 
 export const pageAttribute: PageAttribute = {
   title: "Password Generator",
@@ -27,42 +29,46 @@ const count = 20;
 const minLength = 4;
 const maxLength = 200;
 
-const types = ["numeric", "distinguishable", "alphanumeric", "ascii-printable"];
+const types = [
+  "numeric",
+  "distinguishable",
+  "alphanumeric",
+  "ascii-printable",
+] as const;
 
 const generate = (options: Options) =>
   new Array(count).fill("").map(() => cryptoRandomString(options));
 
-const defaultOptions: Options = {
-  type: "ascii-printable",
-  length: 32,
-};
-
-type State = {
-  options: Options;
-  passwords: string[];
-};
+const defaultLength = 32;
+const defaultPasswordType = types[2];
 
 const _: NextPage = () => {
-  const [state, setState] = useState<State>({
-    options: defaultOptions,
-    passwords: generate(defaultOptions),
-  });
+  const [length, setLength] = useState(defaultLength);
+  const [passwordType, setPasswordType] =
+    useState<typeof types[number]>(defaultPasswordType);
+
+  const [passwords, setPasswords] = useState(
+    generate({ type: passwordType, length })
+  );
+
+  const setPasswordsDebounced = useDebouncedCallback(
+    (options: Options) => setPasswords(generate(options)),
+    debounceWait
+  );
 
   const handleWheelEvent: WheelEventHandler = (event) => {
-    const options: Options = {
-      ...state.options,
-      length: (() => {
-        if (event.deltaY < 0) {
-          return Math.max(state.options.length - 1, minLength);
-        } else if (event.deltaY > 0) {
-          return Math.min(state.options.length + 1, maxLength);
-        } else {
-          return state.options.length;
-        }
-      })(),
-    };
+    const newLength = (() => {
+      if (event.deltaY < 0) {
+        return Math.max(length - 1, minLength);
+      } else if (event.deltaY > 0) {
+        return Math.min(length + 1, maxLength);
+      } else {
+        return length;
+      }
+    })();
 
-    setState({ options, passwords: generate(options) });
+    setLength(newLength);
+    setPasswordsDebounced({ type: passwordType, length: newLength });
   };
 
   return (
@@ -72,7 +78,7 @@ const _: NextPage = () => {
           <Button
             startIcon={<RefreshIcon />}
             onClick={() =>
-              setState({ ...state, passwords: generate(state.options) })
+              setPasswords(generate({ type: passwordType, length }))
             }
           >
             Refresh
@@ -80,15 +86,11 @@ const _: NextPage = () => {
         </Grid>
         <Grid item>
           <ToggleButtonGroup
-            value={state.options.type}
+            value={passwordType}
             exclusive
-            onChange={(event, type) => {
-              const options = {
-                ...state.options,
-                type: type ?? state.options.type,
-              };
-
-              setState({ options, passwords: generate(options) });
+            onChange={(_, newType) => {
+              setPasswordType(newType as typeof types[number]);
+              setPasswordsDebounced({ type: newType, length });
             }}
           >
             {types.map((type) => (
@@ -105,39 +107,41 @@ const _: NextPage = () => {
                 <Slider
                   min={minLength}
                   max={maxLength}
-                  value={state.options.length}
-                  onChange={(event, newValue) => {
-                    const options: Options = {
-                      ...state.options,
-                      length: newValue as number,
-                    };
-
-                    setState({ options, passwords: generate(options) });
+                  value={length}
+                  onChange={(_, value) => {
+                    const newLength = value as number;
+                    setLength(newLength);
+                    setPasswordsDebounced({
+                      type: passwordType,
+                      length: newLength,
+                    });
                   }}
                   aria-labelledby="length"
                 />
               </Grid>
               <Grid item>
                 <Input
-                  value={state.options.length}
+                  value={length}
                   size="small"
                   onChange={(event) => {
-                    const options: Options = {
-                      ...state.options,
-                      length: Number(event.target.value),
-                    };
+                    const newLength = parseInt(event.target.value, 10);
 
-                    setState({ options, passwords: generate(options) });
+                    setLength(newLength);
+                    setPasswordsDebounced({
+                      type: passwordType,
+                      length: newLength,
+                    });
                   }}
                   onBlur={() => {
-                    let options: Options = { ...state.options };
-
-                    if (state.options.length < minLength) {
-                      options = { ...options, length: minLength };
-                    } else if (state.options.length > maxLength) {
-                      options = { ...options, length: maxLength };
+                    if (length < minLength) {
+                      setLength(minLength);
+                    } else if (length > maxLength) {
+                      setLength(maxLength);
                     }
-                    setState({ options, passwords: generate(options) });
+                    setPasswordsDebounced({
+                      type: passwordType,
+                      length,
+                    });
                   }}
                   onWheel={handleWheelEvent}
                   inputProps={{
@@ -155,13 +159,13 @@ const _: NextPage = () => {
       </Grid>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
-          {state.passwords.slice(0, count / 2).map((uuid, i) => (
-            <CodeTextField disabled value={uuid} key={i} />
+          {passwords.slice(0, count / 2).map((password, i) => (
+            <CodeTextField disabled value={password} key={i} />
           ))}
         </Grid>
         <Grid item xs={12} md={6}>
-          {state.passwords.slice(count / 2).map((uuid, i) => (
-            <CodeTextField disabled value={uuid} key={i + count / 2} />
+          {passwords.slice(count / 2).map((password, i) => (
+            <CodeTextField disabled value={password} key={i + count / 2} />
           ))}
         </Grid>
       </Grid>
