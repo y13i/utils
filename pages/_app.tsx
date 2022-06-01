@@ -129,7 +129,10 @@ function App({ Component, pageProps }: AppProps) {
             <Divider />
             <Menu disableTooltip={open} />
           </Drawer>
-          <Box component="main" sx={{ px: 3, py: 10, flexGrow: 1 }}>
+          <Box
+            component="main"
+            sx={{ px: 3, py: 10, flexGrow: 1, overflow: "scroll" }}
+          >
             <Component {...pageProps} />
           </Box>
         </Box>
