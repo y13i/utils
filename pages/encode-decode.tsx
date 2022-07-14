@@ -58,7 +58,7 @@ const _: NextPage = () => {
     "",
     "d",
     useCallback(
-      (loadedData) => {
+      (loadedData: string) => {
         setEncoded(encode(loadedData));
       },
       [encode]
