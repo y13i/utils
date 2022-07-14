@@ -1,7 +1,11 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import Head from "next/head";
 
-export type WithHeadProps = { title: string; description: string };
+export type WithHeadProps = {
+  title: string;
+  description: string;
+  children: ReactNode;
+};
 
 export const WithHead: FC<WithHeadProps> = (props) => (
   <>
