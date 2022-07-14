@@ -23,7 +23,7 @@ const _: NextPage = () => {
   const [input, setInput] = useSearchParamState<string>(
     "",
     "d",
-    useCallback((loadedData) => {
+    useCallback((loadedData: string) => {
       setDecoratedEntries(
         styles.map((style) => [style.name, decorate(loadedData, style.name)])
       );

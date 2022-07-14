@@ -52,7 +52,7 @@ const _: NextPage = () => {
   const [data, setData] = useSearchParamState<any>(
     {},
     "d",
-    useCallback((loadedData) => {
+    useCallback((loadedData: any) => {
       setJson(JSON.stringify(loadedData, ...jsonStringifyOptions));
       setYaml(dump(loadedData));
     }, [])
