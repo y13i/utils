@@ -86,7 +86,6 @@ export const AppNavigation: FC = (props) => {
             aria-label="menu"
             onClick={toggleDrawer}
             sx={{
-              mr: 2,
               ...(open && { visibility: "hidden" }),
             }}
           >

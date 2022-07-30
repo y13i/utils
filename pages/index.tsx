@@ -1,20 +1,20 @@
 import type { NextPage } from "next";
-import Link from "next/link";
 import Typography from "@mui/material/Typography";
 
 import { WithHead } from "../components/WithHead";
-
+import { Link } from "../components/Link";
 import { usePageAttributes } from "../hooks/usePageAttributes";
+import { appName } from "../src/constants";
 
 const _: NextPage = () => {
   return (
     <WithHead title="Utils" description="Collection of handy utilities.">
-      <Typography variant="h1" gutterBottom>
-        Utils
+      <Typography variant="h4" component="h1" gutterBottom>
+        {appName}
       </Typography>
       {usePageAttributes().map((pa) => (
         <div key={pa.title}>
-          <Typography variant="h2" gutterBottom>
+          <Typography variant="h5" component="h2" gutterBottom>
             <Link href={pa.path} passHref>
               {pa.title}
             </Link>
