@@ -6,11 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import Tooltip from "@mui/material/Tooltip";
 
-export const CodeTextField: VFC<TextFieldProps & { monospace?: boolean }> = (
-  props
-) => {
-  const monospace = props.monospace ?? true;
-
+export const CodeTextField: VFC<TextFieldProps> = (props) => {
   const [copied, setCopied] = useState<boolean>(false);
 
   return (
@@ -30,7 +26,7 @@ export const CodeTextField: VFC<TextFieldProps & { monospace?: boolean }> = (
         }}
         InputProps={{
           sx: {
-            ...(monospace ? { fontFamily: "monospace" } : {}),
+            fontFamily: "monospace",
           },
           endAdornment: (
             <InputAdornment

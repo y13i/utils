@@ -46,7 +46,6 @@ const _: NextPage = () => {
   return (
     <WithHead {...pageAttribute}>
       <CodeTextField
-        monospace={false}
         label="Input"
         value={input}
         onChange={(event) => {
@@ -63,7 +62,6 @@ const _: NextPage = () => {
               <CodeTextField
                 disabled
                 label={styleName}
-                monospace={false}
                 value={decorated}
                 key={styleName}
               />
@@ -76,7 +74,6 @@ const _: NextPage = () => {
               <CodeTextField
                 disabled
                 label={styleName}
-                monospace={false}
                 value={decorated}
                 key={styleName}
               />
