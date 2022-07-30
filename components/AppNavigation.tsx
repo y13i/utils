@@ -91,7 +91,7 @@ export const AppNavigation: FC = (props) => {
           >
             <MenuIcon />
           </IconButton>
-          <Link href="https://github.com/y13i/utils" passHref>
+          <Link href="https://github.com/y13i/utils">
             <Button startIcon={<GitHubIcon />} sx={{ color: "white" }}>
               Source Code
             </Button>
@@ -108,7 +108,7 @@ export const AppNavigation: FC = (props) => {
           }}
         >
           <IconButton>
-            <Link href="/" passHref>
+            <Link href="/">
               <HomeIcon />
             </Link>
           </IconButton>
