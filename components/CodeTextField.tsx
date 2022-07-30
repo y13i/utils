@@ -1,4 +1,4 @@
-import { useState, VFC } from "react";
+import { useState, FC } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TextField, { TextFieldProps } from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -6,7 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import Tooltip from "@mui/material/Tooltip";
 
-export const CodeTextField: VFC<TextFieldProps> = (props) => {
+export const CodeTextField: FC<TextFieldProps> = (props) => {
   const [copied, setCopied] = useState<boolean>(false);
 
   return (

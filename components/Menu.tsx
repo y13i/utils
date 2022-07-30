@@ -1,4 +1,4 @@
-import { VFC } from "react";
+import { FC } from "react";
 import Link from "next/link";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -8,7 +8,7 @@ import Tooltip from "@mui/material/Tooltip";
 
 import { usePageAttributes } from "../hooks/usePageAttributes";
 
-export const Menu: VFC<{ disableTooltip: boolean }> = (props) => (
+export const Menu: FC<{ disableTooltip: boolean }> = (props) => (
   <List>
     {usePageAttributes().map((pageAttribute, i) => (
       <Link key={i} href={pageAttribute.path} passHref>
