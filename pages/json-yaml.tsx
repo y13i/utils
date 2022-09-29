@@ -2,12 +2,12 @@ import { useCallback, useState } from "react";
 import { NextPage } from "next";
 import { dump, load } from "js-yaml";
 import { useDebouncedCallback } from "use-debounce";
+import { JsonViewer } from "@textea/json-viewer";
 
 import Grid from "@mui/material/Grid";
 import CodeIcon from "@mui/icons-material/Code";
 
 import { CodeTextField } from "../components/CodeTextField";
-import { JsonView } from "../components/JsonView";
 import { WithHead } from "../components/WithHead";
 import { useSearchParamState } from "../hooks/useSearchParamState";
 import { PageAttribute } from "../hooks/usePageAttributes";
@@ -96,11 +96,13 @@ const _: NextPage = () => {
           />
         </Grid>
         <Grid item xs={12} md={6} xl={4}>
-          <JsonView
-            src={typeof data === "object" ? data : {}}
-            onAdd={(p) => setDataWithRefresh(p.updated_src)}
-            onEdit={(p) => setDataWithRefresh(p.updated_src)}
-            onDelete={(p) => setDataWithRefresh(p.updated_src)}
+          <JsonViewer
+            rootName={false}
+            quotesOnKeys={false}
+            value={typeof data === "object" ? data : {}}
+            onChange={(path, oldValue, newValue) => {
+              setDataWithRefresh(newValue);
+            }}
           />
         </Grid>
       </Grid>
