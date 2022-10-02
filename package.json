@@ -13,7 +13,7 @@
     "@fontsource/roboto": "4.5.8",
     "@mui/icons-material": "5.10.6",
     "@mui/material": "5.10.7",
-    "@textea/json-viewer": "2.7.3",
+    "@textea/json-viewer": "2.8.0",
     "axios": "0.27.2",
     "crypto-random-string": "5.0.0",
     "decoji": "0.2.0",
