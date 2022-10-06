@@ -12,7 +12,7 @@
     "@emotion/styled": "11.10.4",
     "@fontsource/roboto": "4.5.8",
     "@mui/icons-material": "5.10.6",
-    "@mui/material": "5.10.7",
+    "@mui/material": "5.10.8",
     "@textea/json-viewer": "2.9.0",
     "axios": "1.0.0",
     "crypto-random-string": "5.0.0",
