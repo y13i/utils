@@ -21,7 +21,7 @@
     "js-yaml": "4.1.0",
     "json-url": "3.0.0",
     "lzutf8": "0.6.3",
-    "next": "12.3.2",
+    "next": "13.0.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-query": "3.39.2",
@@ -34,7 +34,7 @@
     "@types/react": "18.0.25",
     "@types/uuid": "8.3.4",
     "eslint": "8.27.0",
-    "eslint-config-next": "12.3.2",
+    "eslint-config-next": "13.0.2",
     "typescript": "4.8.4"
   }
 }
