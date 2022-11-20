@@ -5,13 +5,9 @@ import MuiLink from "@mui/material/Link";
 export const Link: FC<
   ComponentProps<typeof NextLink> & ComponentProps<typeof MuiLink>
 > = (props) => {
-  const muiLink = <MuiLink {...props}>{props.children}</MuiLink>;
+  const muiLinkProps = props.href.toString().match(/^https?:\/\//)
+    ? props
+    : { ...props, component: NextLink };
 
-  return props.href.toString().match(/^https?:\/\//) ? (
-    muiLink
-  ) : (
-    <NextLink {...props} passHref>
-      {muiLink}
-    </NextLink>
-  );
+  return <MuiLink {...muiLinkProps}>{props.children}</MuiLink>;
 };
