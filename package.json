@@ -22,6 +22,7 @@
     "json-url": "3.0.0",
     "lzutf8": "0.6.3",
     "next": "13.0.4",
+    "qrcode": "^1.5.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-query": "3.39.2",
@@ -31,6 +32,7 @@
   "devDependencies": {
     "@types/js-yaml": "4.0.5",
     "@types/node": "18.11.9",
+    "@types/qrcode": "^1.5.0",
     "@types/react": "18.0.25",
     "@types/uuid": "8.3.4",
     "eslint": "8.28.0",
