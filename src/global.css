@@ -1,6 +1,6 @@
 html,
 body,
-body > div {
+body > div:first-child {
   height: 100%;
 }
 
