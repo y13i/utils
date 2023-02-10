@@ -17,7 +17,7 @@
     "axios": "1.2.6",
     "crypto-random-string": "5.0.0",
     "decoji": "0.2.0",
-    "jose": "4.11.2",
+    "jose": "4.11.4",
     "js-base64": "3.7.5",
     "js-yaml": "4.1.0",
     "json-url": "3.0.0",
