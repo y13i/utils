@@ -9,7 +9,7 @@ import type { URLSearchParams as URLSearchParamsType } from "url";
 import { compressAsync, decompressAsync } from "lzutf8";
 import { Base64 } from "js-base64";
 import { useDebouncedCallback } from "use-debounce";
-import { debounceWait } from "../src/constants";
+import { debounceWait } from "./constants";
 
 async function encode(data: any): Promise<string> {
   return new Promise((resolve, reject) => {

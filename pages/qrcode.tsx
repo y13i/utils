@@ -15,9 +15,9 @@ import QrCodeIcon from "@mui/icons-material/QrCode";
 
 import { CodeTextField } from "../components/CodeTextField";
 import { WithHead } from "../components/WithHead";
-import { useSearchParamState } from "../hooks/useSearchParamState";
-import { PageAttribute } from "../hooks/usePageAttributes";
-import { debounceWait } from "../src/constants";
+import { useSearchParamState } from "../lib/useSearchParamState";
+import { PageAttribute } from "../lib/usePageAttributes";
+import { debounceWait } from "../lib/constants";
 
 export const pageAttribute: PageAttribute = {
   title: "QR Code Generator",
