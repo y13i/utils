@@ -3,8 +3,8 @@ import Typography from "@mui/material/Typography";
 
 import { WithHead } from "../components/WithHead";
 import { Link } from "../components/Link";
-import { usePageAttributes } from "../hooks/usePageAttributes";
-import { appName } from "../src/constants";
+import { usePageAttributes } from "../lib/usePageAttributes";
+import { appName } from "../lib/constants";
 
 const _: NextPage = () => {
   return (

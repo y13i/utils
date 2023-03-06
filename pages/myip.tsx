@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { NextPage } from "next";
 import { useQuery } from "react-query";
 import axios from "axios";
@@ -10,7 +9,7 @@ import WifiIcon from "@mui/icons-material/Wifi";
 
 import { CodeTextField } from "../components/CodeTextField";
 import { WithHead } from "../components/WithHead";
-import { PageAttribute } from "../hooks/usePageAttributes";
+import { PageAttribute } from "../lib/usePageAttributes";
 
 export const pageAttribute: PageAttribute = {
   title: "My IP",

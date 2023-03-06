@@ -12,8 +12,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
 import GitHubIcon from "@mui/icons-material/GitHub";
 
-import { Menu } from "../components/Menu";
-import { Link } from "../components/Link";
+import { Menu } from "./Menu";
+import { Link } from "./Link";
 
 const drawerWidth = 240;
 

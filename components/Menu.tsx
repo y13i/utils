@@ -6,7 +6,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Tooltip from "@mui/material/Tooltip";
 
-import { usePageAttributes } from "../hooks/usePageAttributes";
+import { usePageAttributes } from "../lib/usePageAttributes";
 
 export const Menu: FC<{ disableTooltip: boolean }> = (props) => (
   <List>

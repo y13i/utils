@@ -14,8 +14,8 @@ import { Token } from "@mui/icons-material";
 
 import { CodeTextField } from "../components/CodeTextField";
 import { WithHead } from "../components/WithHead";
-import { PageAttribute } from "../hooks/usePageAttributes";
-import { debounceWait } from "../src/constants";
+import { PageAttribute } from "../lib/usePageAttributes";
+import { debounceWait } from "../lib/constants";
 
 export const pageAttribute: PageAttribute = {
   title: "JWT Viewer",

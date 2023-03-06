@@ -10,7 +10,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 
-import "../src/global.css";
+import "../lib/global.css";
 import { AppNavigation } from "../components/AppNavigation";
 
 const queryClient = new QueryClient();
