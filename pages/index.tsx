@@ -8,7 +8,7 @@ import { appName } from "../lib/constants";
 
 const _: NextPage = () => {
   return (
-    <WithHead title="Utils" description="Collection of handy utilities.">
+    <WithHead title="Home" description="Collection of handy utilities.">
       <Typography variant="h4" component="h1" gutterBottom>
         {appName}
       </Typography>
