@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import { useQuery } from "react-query";
-import axios from "axios";
+import ky from "ky";
 
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
@@ -29,8 +29,7 @@ const _: NextPage = () => {
     isFetching: isFetchingIpv6or4,
     refetch: refetchIpv6or4,
   } = useQuery<string>("ipv6or4", async () => {
-    const { data } = await axios.get(ipv6or4Api);
-    return data;
+    return await ky.get(ipv6or4Api).text();
   });
 
   const {
@@ -40,8 +39,7 @@ const _: NextPage = () => {
     isFetching: isFetchingIpv4,
     refetch: refetchIpv4,
   } = useQuery<string>("ipv4", async () => {
-    const { data } = await axios.get(ipv4Api);
-    return data;
+    return await ky.get(ipv4Api).text();
   });
 
   return (
