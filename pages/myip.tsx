@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import ky from "ky";
 
 import Button from "@mui/material/Button";
