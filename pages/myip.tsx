@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import ky from "ky";
 
 import Button from "@mui/material/Button";
@@ -28,7 +28,7 @@ const _: NextPage = () => {
     isLoading: isLoadingIpv6or4,
     isFetching: isFetchingIpv6or4,
     refetch: refetchIpv6or4,
-  } = useQuery<string>("ipv6or4", async () => {
+  } = useQuery(["ipv6or4"], async () => {
     return await ky.get(ipv6or4Api).text();
   });
 
@@ -38,7 +38,7 @@ const _: NextPage = () => {
     isLoading: isLoadingIpv4,
     isFetching: isFetchingIpv4,
     refetch: refetchIpv4,
-  } = useQuery<string>("ipv4", async () => {
+  } = useQuery(["ipv4"], async () => {
     return await ky.get(ipv4Api).text();
   });
 
