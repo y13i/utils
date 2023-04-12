@@ -16,7 +16,7 @@
     "@textea/json-viewer": "2.16.2",
     "crypto-random-string": "5.0.0",
     "decoji": "0.2.0",
-    "jose": "4.13.1",
+    "jose": "4.13.2",
     "js-base64": "3.7.5",
     "js-yaml": "4.1.0",
     "json-url": "3.0.0",
