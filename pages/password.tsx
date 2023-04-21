@@ -126,11 +126,15 @@ const _: NextPage = () => {
                   onChange={(event) => {
                     const newLength = parseInt(event.target.value, 10);
 
-                    setLength(newLength);
-                    setPasswordsDebounced({
-                      type: passwordType,
-                      length: newLength,
-                    });
+                    if (newLength >= minLength && newLength <= maxLength) {
+                      setLength(newLength);
+                      setPasswordsDebounced({
+                        type: passwordType,
+                        length: newLength,
+                      });
+                    } else {
+                      return;
+                    }
                   }}
                   onBlur={() => {
                     if (length < minLength) {
