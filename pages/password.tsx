@@ -126,6 +126,14 @@ const _: NextPage = () => {
                   onChange={(event) => {
                     const newLength = parseInt(event.target.value, 10);
 
+                    if (
+                      isNaN(newLength) ||
+                      newLength < minLength ||
+                      newLength > maxLength
+                    ) {
+                      return;
+                    }
+
                     setLength(newLength);
                     setPasswordsDebounced({
                       type: passwordType,
