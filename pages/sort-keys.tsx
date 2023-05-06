@@ -139,7 +139,11 @@ const _: NextPage = () => {
                 key={key}
                 label={key}
                 onDelete={() => {
-                  setPrioritizeKeys(prioritizeKeys.filter((k) => k !== key));
+                  const newPrioritizeKeys = prioritizeKeys.filter(
+                    (k) => k !== key
+                  );
+                  setPrioritizeKeys(newPrioritizeKeys);
+                  refreshOutput({ prioritizeKeys: newPrioritizeKeys });
                 }}
               />
             ))}
@@ -175,9 +179,9 @@ const _: NextPage = () => {
                   refreshOutput({ format: newFormat });
                 }}
               >
-                {formats.map((m) => (
-                  <MenuItem key={m} value={m}>
-                    {m}
+                {formats.map((format) => (
+                  <MenuItem key={format} value={format}>
+                    {format}
                   </MenuItem>
                 ))}
               </Select>
