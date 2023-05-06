@@ -14,6 +14,7 @@
     "@mui/icons-material": "5.11.16",
     "@mui/material": "5.12.3",
     "@textea/json-viewer": "3.0.0",
+    "@y13i/sort-keys": "0.2.0",
     "crypto-random-string": "5.0.0",
     "decoji": "0.2.0",
     "jose": "4.14.4",
