@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 
 import { pageAttribute as jsonYaml } from "../pages/json-yaml";
+import { pageAttribute as sortKeys } from "../pages/sort-keys";
 import { pageAttribute as encodeDecode } from "../pages/encode-decode";
 import { pageAttribute as jwt } from "../pages/jwt";
 import { pageAttribute as myip } from "../pages/myip";
@@ -17,5 +18,15 @@ export type PageAttribute = {
 };
 
 export function usePageAttributes(): PageAttribute[] {
-  return [jsonYaml, encodeDecode, jwt, myip, password, qrcode, uuid, decoji];
+  return [
+    jsonYaml,
+    sortKeys,
+    encodeDecode,
+    jwt,
+    myip,
+    password,
+    qrcode,
+    uuid,
+    decoji,
+  ];
 }
