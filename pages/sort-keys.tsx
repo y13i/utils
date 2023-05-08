@@ -39,7 +39,7 @@ const _: NextPage = () => {
   const [prioritizeKeys, setPrioritizeKeys] = useState<string[]>([]);
   const [errors, setErrors] = useState<{ yaml?: Error }>({});
   const [depth, setDepth] = useState<number>(100);
-  const [prioritizePremitives, setPrioritizePremitives] =
+  const [prioritizePrimitives, setPrioritizePrimitives] =
     useState<boolean>(false);
 
   const formats = ["YAML", "JSON"] as const;
@@ -53,7 +53,7 @@ const _: NextPage = () => {
       format?: (typeof formats)[number];
       depth?: number;
       prioritizeKeys?: string[];
-      prioritizePremitives?: boolean;
+      prioritizePrimitives?: boolean;
     } = {}
   ) {
     const newData = option.data ?? data;
@@ -62,7 +62,7 @@ const _: NextPage = () => {
       depth: option.depth ?? depth,
       prioritize: {
         keys: option.prioritizeKeys ?? prioritizeKeys,
-        primitives: option.prioritizePremitives ?? prioritizePremitives,
+        primitives: option.prioritizePrimitives ?? prioritizePrimitives,
       },
     });
 
@@ -93,17 +93,17 @@ const _: NextPage = () => {
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={prioritizePremitives}
+                  checked={prioritizePrimitives}
                   onChange={(event) => {
-                    const newPrioritizePremitives = event.target.checked;
-                    setPrioritizePremitives(newPrioritizePremitives);
+                    const newPrioritizePrimitives = event.target.checked;
+                    setPrioritizePrimitives(newPrioritizePrimitives);
                     refreshOutput({
-                      prioritizePremitives: newPrioritizePremitives,
+                      prioritizePrimitives: newPrioritizePrimitives,
                     });
                   }}
                 />
               }
-              label="Prioritize Premitives"
+              label="Prioritize Primitives"
             />
           </Container>
           <Container>
