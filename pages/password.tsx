@@ -89,6 +89,9 @@ const _: NextPage = () => {
             value={passwordType}
             exclusive
             onChange={(_, newType) => {
+              if (newType === null) {
+                return;
+              }
               setPasswordType(newType as typeof types[number]);
               setPasswordsDebounced({ type: newType, length });
             }}
