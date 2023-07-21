@@ -42,10 +42,10 @@ const generate = (options: Options) =>
 const defaultLength = 32;
 const defaultPasswordType = types[2];
 
-const _: NextPage = () => {
+const Page: NextPage = () => {
   const [length, setLength] = useState(defaultLength);
   const [passwordType, setPasswordType] =
-    useState<typeof types[number]>(defaultPasswordType);
+    useState<(typeof types)[number]>(defaultPasswordType);
 
   const [passwords, setPasswords] = useState(
     generate({ type: passwordType, length })
@@ -92,7 +92,7 @@ const _: NextPage = () => {
               if (newType === null) {
                 return;
               }
-              setPasswordType(newType as typeof types[number]);
+              setPasswordType(newType as (typeof types)[number]);
               setPasswordsDebounced({ type: newType, length });
             }}
           >
@@ -184,4 +184,4 @@ const _: NextPage = () => {
   );
 };
 
-export default _;
+export default Page;

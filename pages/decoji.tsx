@@ -19,7 +19,7 @@ export const pageAttribute: PageAttribute = {
   icon: <AbcIcon />,
 };
 
-const _: NextPage = () => {
+const Page: NextPage = () => {
   const [input, setInput] = useSearchParamState<string>(
     "",
     "d",
@@ -84,4 +84,4 @@ const _: NextPage = () => {
   );
 };
 
-export default _;
+export default Page;

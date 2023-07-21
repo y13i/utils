@@ -24,14 +24,14 @@ export const pageAttribute: PageAttribute = {
   icon: <CodeIcon />,
 };
 
-const _: NextPage = () => {
+const Page: NextPage = () => {
   const [encoded, setEncoded] = useState("");
   const [encodeError, setEncodeError] = useState<Error | undefined>();
   const [decodeError, setDecodeError] = useState<Error | undefined>();
 
   const modes = ["Base64", "Base64URI", "URIComponent", "URI"] as const;
 
-  const [mode, setMode] = useSearchParamState<typeof modes[number]>(
+  const [mode, setMode] = useSearchParamState<(typeof modes)[number]>(
     modes[0],
     "m"
   );
@@ -92,7 +92,7 @@ const _: NextPage = () => {
           value={mode}
           label="Mode"
           onChange={(event) => {
-            setMode(event.target.value as typeof modes[number]);
+            setMode(event.target.value as (typeof modes)[number]);
             encodeDebounced(plain);
           }}
         >
@@ -139,4 +139,4 @@ const _: NextPage = () => {
   );
 };
 
-export default _;
+export default Page;

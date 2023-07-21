@@ -6,7 +6,7 @@ import { Link } from "../components/Link";
 import { usePageAttributes } from "../lib/usePageAttributes";
 import { appName } from "../lib/constants";
 
-const _: NextPage = () => {
+const Page: NextPage = () => {
   return (
     <WithHead title="Home" description="Collection of handy utilities.">
       <Typography variant="h4" component="h1" gutterBottom>
@@ -27,4 +27,4 @@ const _: NextPage = () => {
   );
 };
 
-export default _;
+export default Page;

@@ -25,7 +25,7 @@ type State = {
   uuids: string[];
 };
 
-const _: NextPage = () => {
+const Page: NextPage = () => {
   const [state, setState] = useState<State>({
     uuids: generate(),
   });
@@ -54,4 +54,4 @@ const _: NextPage = () => {
   );
 };
 
-export default _;
+export default Page;

@@ -21,7 +21,7 @@ export const pageAttribute: PageAttribute = {
 const ipv6or4Api = "https://myip.y13i.com/";
 const ipv4Api = "https://myip4.y13i.com/";
 
-const _: NextPage = () => {
+const Page: NextPage = () => {
   const {
     data: ipv6or4,
     error: errorIpv6or4,
@@ -92,4 +92,4 @@ const _: NextPage = () => {
   );
 };
 
-export default _;
+export default Page;
