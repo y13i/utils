@@ -26,13 +26,13 @@ export const pageAttribute: PageAttribute = {
   icon: <QrCodeIcon />,
 };
 
-const _: NextPage = () => {
+const Page: NextPage = () => {
   const [dataUrl, setDataUrl] = useState("");
   const [generateError, setGenerateError] = useState<Error | undefined>();
 
   const errorCorrectionLevels = ["low", "medium", "quartile", "high"] as const;
   const [errorCorrectionLevel, setErrorCorrectionLevel] = useSearchParamState<
-    typeof errorCorrectionLevels[number]
+    (typeof errorCorrectionLevels)[number]
   >(errorCorrectionLevels[1], "c");
 
   const maskPatterns = [
@@ -47,7 +47,7 @@ const _: NextPage = () => {
     "7",
   ] as const;
   const [maskPattern, setMaskPattern] = useSearchParamState<
-    typeof maskPatterns[number]
+    (typeof maskPatterns)[number]
   >(maskPatterns[0], "m");
 
   const generateDataUrl = useCallback(
@@ -99,7 +99,7 @@ const _: NextPage = () => {
               label="Error Correction Level"
               onChange={(event) => {
                 setErrorCorrectionLevel(
-                  event.target.value as typeof errorCorrectionLevels[number]
+                  event.target.value as (typeof errorCorrectionLevels)[number]
                 );
                 generateDebounced(payload);
               }}
@@ -119,7 +119,7 @@ const _: NextPage = () => {
               label="Mask Pattern"
               onChange={(event) => {
                 setMaskPattern(
-                  event.target.value as typeof maskPatterns[number]
+                  event.target.value as (typeof maskPatterns)[number]
                 );
                 generateDebounced(payload);
               }}
@@ -158,4 +158,4 @@ const _: NextPage = () => {
   );
 };
 
-export default _;
+export default Page;

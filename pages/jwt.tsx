@@ -24,7 +24,7 @@ export const pageAttribute: PageAttribute = {
   icon: <Token />,
 };
 
-const _: NextPage = () => {
+const Page: NextPage = () => {
   const [jwt, setJwt] = useState<string>("");
   // prettier-ignore
   const [protectedHeader, setProtectedHeader] = useState<ProtectedHeaderParameters | undefined>();
@@ -81,4 +81,4 @@ const _: NextPage = () => {
   );
 };
 
-export default _;
+export default Page;

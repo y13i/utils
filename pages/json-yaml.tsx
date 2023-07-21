@@ -22,7 +22,7 @@ export const pageAttribute: PageAttribute = {
 
 const jsonStringifyOptions = [undefined, 2] as const;
 
-const _: NextPage = () => {
+const Page: NextPage = () => {
   const [json, setJson] = useState<string>("");
   const [yaml, setYaml] = useState<string>("");
   const [errors, setErrors] = useState<{ json?: Error; yaml?: Error }>({});
@@ -110,4 +110,4 @@ const _: NextPage = () => {
   );
 };
 
-export default _;
+export default Page;
