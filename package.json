@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@types/js-yaml": "4.0.9",
-    "@types/node": "20.8.10",
+    "@types/node": "20.9.0",
     "@types/qrcode": "1.5.5",
     "@types/react": "18.2.36",
     "@types/uuid": "9.0.6",
