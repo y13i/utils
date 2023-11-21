@@ -28,8 +28,11 @@ const Page: NextPage = () => {
     isLoading: isLoadingIpv6or4,
     isFetching: isFetchingIpv6or4,
     refetch: refetchIpv6or4,
-  } = useQuery(["ipv6or4"], async () => {
-    return await ky.get(ipv6or4Api).text();
+  } = useQuery({
+    queryKey: ["ipv6or4"],
+    queryFn: async () => {
+      return await ky.get(ipv6or4Api).text();
+    },
   });
 
   const {
@@ -38,8 +41,11 @@ const Page: NextPage = () => {
     isLoading: isLoadingIpv4,
     isFetching: isFetchingIpv4,
     refetch: refetchIpv4,
-  } = useQuery(["ipv4"], async () => {
-    return await ky.get(ipv4Api).text();
+  } = useQuery({
+    queryKey: ["ipv4"],
+    queryFn: async () => {
+      return await ky.get(ipv4Api).text();
+    },
   });
 
   return (
