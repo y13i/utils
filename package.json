@@ -35,7 +35,7 @@
     "@types/js-yaml": "4.0.9",
     "@types/node": "20.10.4",
     "@types/qrcode": "1.5.5",
-    "@types/react": "18.2.42",
+    "@types/react": "18.2.43",
     "@types/uuid": "9.0.7",
     "@typescript-eslint/eslint-plugin": "6.13.2",
     "@typescript-eslint/parser": "6.13.2",
