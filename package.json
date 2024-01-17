@@ -12,7 +12,7 @@
     "@emotion/styled": "11.11.0",
     "@fontsource/roboto": "5.0.8",
     "@mui/icons-material": "5.15.4",
-    "@mui/material": "5.15.4",
+    "@mui/material": "5.15.5",
     "@tanstack/react-query": "5.17.15",
     "@textea/json-viewer": "3.3.0",
     "@y13i/sort-keys": "0.2.2",
