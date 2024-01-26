@@ -36,7 +36,7 @@
     "@types/node": "20.11.6",
     "@types/qrcode": "1.5.5",
     "@types/react": "18.2.48",
-    "@types/uuid": "9.0.7",
+    "@types/uuid": "9.0.8",
     "@typescript-eslint/eslint-plugin": "6.19.1",
     "@typescript-eslint/parser": "6.19.1",
     "eslint": "8.56.0",
