@@ -1,21 +1,21 @@
-import { useState, useCallback } from "react";
-import { NextPage } from "next";
 import { Base64 } from "js-base64";
+import type { NextPage } from "next";
+import { useCallback, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 
+import FormControl from "@mui/material/FormControl";
 import Grid from "@mui/material/Grid";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
 import CodeIcon from "@mui/icons-material/Code";
 
 import { CodeTextField } from "../components/CodeTextField";
 import { WithHead } from "../components/WithHead";
-import { useSearchParamState } from "../lib/useSearchParamState";
-import { PageAttribute } from "../lib/usePageAttributes";
 import { debounceWait } from "../lib/constants";
+import type { PageAttribute } from "../lib/usePageAttributes";
+import { useSearchParamState } from "../lib/useSearchParamState";
 
 export const pageAttribute: PageAttribute = {
   title: "Encode/decode",
@@ -31,10 +31,7 @@ const Page: NextPage = () => {
 
   const modes = ["Base64", "Base64URI", "URIComponent", "URI"] as const;
 
-  const [mode, setMode] = useSearchParamState<(typeof modes)[number]>(
-    modes[0],
-    "m"
-  );
+  const [mode, setMode] = useSearchParamState<(typeof modes)[number]>(modes[0], "m");
 
   const encode = useCallback(
     (string: string) => {
@@ -44,7 +41,7 @@ const Page: NextPage = () => {
       if (mode === "URI") return encodeURI(string);
       return "";
     },
-    [mode]
+    [mode],
   );
 
   const decode = (string: string) => {
@@ -61,8 +58,8 @@ const Page: NextPage = () => {
       (loadedData: string) => {
         setEncoded(encode(loadedData));
       },
-      [encode]
-    )
+      [encode],
+    ),
   );
 
   const encodeDebounced = useDebouncedCallback((newPlain) => {

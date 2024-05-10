@@ -1,15 +1,15 @@
+import type { NextPage } from "next";
 import { useState } from "react";
-import { NextPage } from "next";
 import { v4 } from "uuid";
 
+import NumbersIcon from "@mui/icons-material/Numbers";
+import RefreshIcon from "@mui/icons-material/Refresh";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
-import RefreshIcon from "@mui/icons-material/Refresh";
-import NumbersIcon from "@mui/icons-material/Numbers";
 
 import { CodeTextField } from "../components/CodeTextField";
 import { WithHead } from "../components/WithHead";
-import { PageAttribute } from "../lib/usePageAttributes";
+import type { PageAttribute } from "../lib/usePageAttributes";
 
 export const pageAttribute: PageAttribute = {
   title: "UUIDv4",
@@ -32,10 +32,7 @@ const Page: NextPage = () => {
 
   return (
     <WithHead {...pageAttribute}>
-      <Button
-        startIcon={<RefreshIcon />}
-        onClick={() => setState({ uuids: generate() })}
-      >
+      <Button startIcon={<RefreshIcon />} onClick={() => setState({ uuids: generate() })}>
         Refresh
       </Button>
       <Grid container spacing={2}>

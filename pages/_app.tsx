@@ -1,14 +1,14 @@
-import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import type { AppProps } from "next/app";
 
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
+import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 import "../lib/global.css";
 import { AppNavigation } from "../components/AppNavigation";
@@ -34,10 +34,7 @@ function App({ Component, pageProps }: AppProps) {
         <CssBaseline />
         <Box sx={{ display: "flex", height: "100%" }}>
           <AppNavigation />
-          <Box
-            component="main"
-            sx={{ px: 3, py: 10, flexGrow: 1, overflow: "auto" }}
-          >
+          <Box component="main" sx={{ px: 3, py: 10, flexGrow: 1, overflow: "auto" }}>
             <Component {...pageProps} />
           </Box>
         </Box>

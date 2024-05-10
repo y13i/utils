@@ -1,15 +1,15 @@
-import { NextPage } from "next";
 import { useQuery } from "@tanstack/react-query";
 import ky from "ky";
+import type { NextPage } from "next";
 
-import Button from "@mui/material/Button";
-import Grid from "@mui/material/Grid";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import WifiIcon from "@mui/icons-material/Wifi";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
 
 import { CodeTextField } from "../components/CodeTextField";
 import { WithHead } from "../components/WithHead";
-import { PageAttribute } from "../lib/usePageAttributes";
+import type { PageAttribute } from "../lib/usePageAttributes";
 
 export const pageAttribute: PageAttribute = {
   title: "My IP",
@@ -50,10 +50,7 @@ const Page: NextPage = () => {
 
   return (
     <WithHead {...pageAttribute}>
-      <Button
-        startIcon={<RefreshIcon />}
-        onClick={() => Promise.all([refetchIpv6or4(), refetchIpv4()])}
-      >
+      <Button startIcon={<RefreshIcon />} onClick={() => Promise.all([refetchIpv6or4(), refetchIpv4()])}>
         Refetch
       </Button>
       <Grid container spacing={2}>

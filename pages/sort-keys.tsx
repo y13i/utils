@@ -1,27 +1,27 @@
-import { useState } from "react";
-import { NextPage } from "next";
-import { dump, load } from "js-yaml";
-import { useDebouncedCallback } from "use-debounce";
 import { JsonViewer } from "@textea/json-viewer";
 import { sortKeys } from "@y13i/sort-keys";
+import { dump, load } from "js-yaml";
+import type { NextPage } from "next";
+import { useState } from "react";
+import { useDebouncedCallback } from "use-debounce";
 
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
 import CodeIcon from "@mui/icons-material/Code";
+import Checkbox from "@mui/material/Checkbox";
+import Chip from "@mui/material/Chip";
+import Container from "@mui/material/Container";
 import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Grid from "@mui/material/Grid";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
+import Select from "@mui/material/Select";
 import Slider from "@mui/material/Slider";
 import TextField from "@mui/material/TextField";
-import Chip from "@mui/material/Chip";
 
 import { CodeTextField } from "../components/CodeTextField";
 import { WithHead } from "../components/WithHead";
-import { PageAttribute } from "../lib/usePageAttributes";
 import { debounceWait } from "../lib/constants";
+import type { PageAttribute } from "../lib/usePageAttributes";
 
 export const pageAttribute: PageAttribute = {
   title: "Sort Keys",
@@ -39,8 +39,7 @@ const Page: NextPage = () => {
   const [prioritizeKeys, setPrioritizeKeys] = useState<string[]>([]);
   const [errors, setErrors] = useState<{ yaml?: Error }>({});
   const [depth, setDepth] = useState<number>(100);
-  const [prioritizePrimitives, setPrioritizePrimitives] =
-    useState<boolean>(false);
+  const [prioritizePrimitives, setPrioritizePrimitives] = useState<boolean>(false);
 
   const formats = ["YAML", "JSON"] as const;
   const [format, setFormat] = useState<(typeof formats)[number]>(formats[0]);
@@ -54,7 +53,7 @@ const Page: NextPage = () => {
       depth?: number;
       prioritizeKeys?: string[];
       prioritizePrimitives?: boolean;
-    } = {}
+    } = {},
   ) {
     const newData = option.data ?? data;
 
@@ -69,9 +68,7 @@ const Page: NextPage = () => {
     setData(sortedData);
 
     setOutput(
-      (option.format ?? format) === "YAML"
-        ? dump(sortedData)
-        : JSON.stringify(sortedData, ...jsonStringifyOptions)
+      (option.format ?? format) === "YAML" ? dump(sortedData) : JSON.stringify(sortedData, ...jsonStringifyOptions),
     );
   }
 
@@ -139,9 +136,7 @@ const Page: NextPage = () => {
                 key={key}
                 label={key}
                 onDelete={() => {
-                  const newPrioritizeKeys = prioritizeKeys.filter(
-                    (k) => k !== key
-                  );
+                  const newPrioritizeKeys = prioritizeKeys.filter((k) => k !== key);
                   setPrioritizeKeys(newPrioritizeKeys);
                   refreshOutput({ prioritizeKeys: newPrioritizeKeys });
                 }}
@@ -173,8 +168,7 @@ const Page: NextPage = () => {
                 value={format}
                 label="Output Format"
                 onChange={(event) => {
-                  const newFormat = event.target
-                    .value as (typeof formats)[number];
+                  const newFormat = event.target.value as (typeof formats)[number];
                   setFormat(newFormat);
                   refreshOutput({ format: newFormat });
                 }}
@@ -203,19 +197,10 @@ const Page: NextPage = () => {
           </Container>
         </Grid>
         <Grid item xs={12} md={6} xl={4}>
-          <CodeTextField
-            multiline
-            label="Output"
-            value={output}
-            disabled={true}
-          />
+          <CodeTextField multiline label="Output" value={output} disabled={true} />
         </Grid>
         <Grid item xs={12} md={6} xl={4}>
-          <JsonViewer
-            rootName={false}
-            quotesOnKeys={false}
-            value={typeof data === "object" ? data : {}}
-          />
+          <JsonViewer rootName={false} quotesOnKeys={false} value={typeof data === "object" ? data : {}} />
         </Grid>
       </Grid>
     </WithHead>

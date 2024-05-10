@@ -1,23 +1,23 @@
-import { useState, useCallback } from "react";
-import { NextPage } from "next";
+import type { NextPage } from "next";
+import { type QRCodeMaskPattern, toDataURL } from "qrcode";
+import { useCallback, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
-import { toDataURL, QRCodeMaskPattern } from "qrcode";
 
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
+import FormControl from "@mui/material/FormControl";
 import Grid from "@mui/material/Grid";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
 
 import QrCodeIcon from "@mui/icons-material/QrCode";
 
 import { CodeTextField } from "../components/CodeTextField";
 import { WithHead } from "../components/WithHead";
-import { useSearchParamState } from "../lib/useSearchParamState";
-import { PageAttribute } from "../lib/usePageAttributes";
 import { debounceWait } from "../lib/constants";
+import type { PageAttribute } from "../lib/usePageAttributes";
+import { useSearchParamState } from "../lib/useSearchParamState";
 
 export const pageAttribute: PageAttribute = {
   title: "QR Code Generator",
@@ -31,24 +31,13 @@ const Page: NextPage = () => {
   const [generateError, setGenerateError] = useState<Error | undefined>();
 
   const errorCorrectionLevels = ["low", "medium", "quartile", "high"] as const;
-  const [errorCorrectionLevel, setErrorCorrectionLevel] = useSearchParamState<
-    (typeof errorCorrectionLevels)[number]
-  >(errorCorrectionLevels[1], "c");
+  const [errorCorrectionLevel, setErrorCorrectionLevel] = useSearchParamState<(typeof errorCorrectionLevels)[number]>(
+    errorCorrectionLevels[1],
+    "c",
+  );
 
-  const maskPatterns = [
-    "auto",
-    "0",
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-  ] as const;
-  const [maskPattern, setMaskPattern] = useSearchParamState<
-    (typeof maskPatterns)[number]
-  >(maskPatterns[0], "m");
+  const maskPatterns = ["auto", "0", "1", "2", "3", "4", "5", "6", "7"] as const;
+  const [maskPattern, setMaskPattern] = useSearchParamState<(typeof maskPatterns)[number]>(maskPatterns[0], "m");
 
   const generateDataUrl = useCallback(
     async (payload: string) => {
@@ -56,10 +45,8 @@ const Page: NextPage = () => {
         setDataUrl(
           await toDataURL(payload, {
             errorCorrectionLevel,
-            maskPattern: (maskPattern === "auto"
-              ? undefined
-              : parseInt(maskPattern)) as QRCodeMaskPattern,
-          })
+            maskPattern: (maskPattern === "auto" ? undefined : Number.parseInt(maskPattern)) as QRCodeMaskPattern,
+          }),
         );
         setGenerateError(undefined);
       } catch (err) {
@@ -67,7 +54,7 @@ const Page: NextPage = () => {
         console.error(err);
       }
     },
-    [errorCorrectionLevel, maskPattern]
+    [errorCorrectionLevel, maskPattern],
   );
 
   const [payload, setPayload] = useSearchParamState<string>(
@@ -77,8 +64,8 @@ const Page: NextPage = () => {
       (loadedData: string) => {
         generateDataUrl(loadedData);
       },
-      [generateDataUrl]
-    )
+      [generateDataUrl],
+    ),
   );
 
   const generateDebounced = useDebouncedCallback((newPayload) => {
@@ -90,17 +77,13 @@ const Page: NextPage = () => {
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
           <FormControl>
-            <InputLabel id="error-correction-level-select-label">
-              Error Correction Level
-            </InputLabel>
+            <InputLabel id="error-correction-level-select-label">Error Correction Level</InputLabel>
             <Select
               labelId="error-correction-level-select-label"
               value={errorCorrectionLevel}
               label="Error Correction Level"
               onChange={(event) => {
-                setErrorCorrectionLevel(
-                  event.target.value as (typeof errorCorrectionLevels)[number]
-                );
+                setErrorCorrectionLevel(event.target.value as (typeof errorCorrectionLevels)[number]);
                 generateDebounced(payload);
               }}
             >
@@ -118,9 +101,7 @@ const Page: NextPage = () => {
               value={maskPattern}
               label="Mask Pattern"
               onChange={(event) => {
-                setMaskPattern(
-                  event.target.value as (typeof maskPatterns)[number]
-                );
+                setMaskPattern(event.target.value as (typeof maskPatterns)[number]);
                 generateDebounced(payload);
               }}
             >

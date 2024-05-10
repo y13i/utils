@@ -1,5 +1,5 @@
-import { FC, ReactNode } from "react";
 import Head from "next/head";
+import type { FC, ReactNode } from "react";
 
 import { appName } from "../lib/constants";
 
