@@ -1,21 +1,16 @@
-import { useState } from "react";
-import { NextPage } from "next";
-import { useDebouncedCallback } from "use-debounce";
 import { JsonViewer } from "@textea/json-viewer";
-import {
-  JWTPayload,
-  ProtectedHeaderParameters,
-  decodeProtectedHeader,
-  decodeJwt,
-} from "jose";
+import { type JWTPayload, type ProtectedHeaderParameters, decodeJwt, decodeProtectedHeader } from "jose";
+import type { NextPage } from "next";
+import { useState } from "react";
+import { useDebouncedCallback } from "use-debounce";
 
-import { Typography, Grid } from "@mui/material";
 import { Token } from "@mui/icons-material";
+import { Grid, Typography } from "@mui/material";
 
 import { CodeTextField } from "../components/CodeTextField";
 import { WithHead } from "../components/WithHead";
-import { PageAttribute } from "../lib/usePageAttributes";
 import { debounceWait } from "../lib/constants";
+import type { PageAttribute } from "../lib/usePageAttributes";
 
 export const pageAttribute: PageAttribute = {
   title: "JWT Viewer",
@@ -70,11 +65,7 @@ const Page: NextPage = () => {
           <Typography variant="h6" component="h2" gutterBottom>
             Payload
           </Typography>
-          <JsonViewer
-            rootName={false}
-            quotesOnKeys={false}
-            value={typeof payload === "object" ? payload : {}}
-          />
+          <JsonViewer rootName={false} quotesOnKeys={false} value={typeof payload === "object" ? payload : {}} />
         </Grid>
       </Grid>
     </WithHead>

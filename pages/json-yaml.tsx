@@ -1,17 +1,17 @@
-import { useCallback, useState } from "react";
-import { NextPage } from "next";
-import { dump, load } from "js-yaml";
-import { useDebouncedCallback } from "use-debounce";
 import { JsonViewer } from "@textea/json-viewer";
+import { dump, load } from "js-yaml";
+import type { NextPage } from "next";
+import { useCallback, useState } from "react";
+import { useDebouncedCallback } from "use-debounce";
 
-import Grid from "@mui/material/Grid";
 import CodeIcon from "@mui/icons-material/Code";
+import Grid from "@mui/material/Grid";
 
 import { CodeTextField } from "../components/CodeTextField";
 import { WithHead } from "../components/WithHead";
-import { useSearchParamState } from "../lib/useSearchParamState";
-import { PageAttribute } from "../lib/usePageAttributes";
 import { debounceWait } from "../lib/constants";
+import type { PageAttribute } from "../lib/usePageAttributes";
+import { useSearchParamState } from "../lib/useSearchParamState";
 
 export const pageAttribute: PageAttribute = {
   title: "JSON/YAML",
@@ -55,7 +55,7 @@ const Page: NextPage = () => {
     useCallback((loadedData: any) => {
       setJson(JSON.stringify(loadedData, ...jsonStringifyOptions));
       setYaml(dump(loadedData));
-    }, [])
+    }, []),
   );
 
   function setDataWithRefresh(data: any): void {

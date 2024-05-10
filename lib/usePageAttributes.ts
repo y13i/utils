@@ -1,14 +1,14 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
-import { pageAttribute as jsonYaml } from "../pages/json-yaml";
-import { pageAttribute as sortKeys } from "../pages/sort-keys";
+import { pageAttribute as decoji } from "../pages/decoji";
 import { pageAttribute as encodeDecode } from "../pages/encode-decode";
+import { pageAttribute as jsonYaml } from "../pages/json-yaml";
 import { pageAttribute as jwt } from "../pages/jwt";
 import { pageAttribute as myip } from "../pages/myip";
 import { pageAttribute as password } from "../pages/password";
 import { pageAttribute as qrcode } from "../pages/qrcode";
+import { pageAttribute as sortKeys } from "../pages/sort-keys";
 import { pageAttribute as uuid } from "../pages/uuid";
-import { pageAttribute as decoji } from "../pages/decoji";
 
 export type PageAttribute = {
   title: string;
@@ -18,15 +18,5 @@ export type PageAttribute = {
 };
 
 export function usePageAttributes(): PageAttribute[] {
-  return [
-    jsonYaml,
-    sortKeys,
-    encodeDecode,
-    jwt,
-    myip,
-    password,
-    qrcode,
-    uuid,
-    decoji,
-  ];
+  return [jsonYaml, sortKeys, encodeDecode, jwt, myip, password, qrcode, uuid, decoji];
 }

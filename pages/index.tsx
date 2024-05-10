@@ -1,10 +1,10 @@
-import type { NextPage } from "next";
 import Typography from "@mui/material/Typography";
+import type { NextPage } from "next";
 
-import { WithHead } from "../components/WithHead";
 import { Link } from "../components/Link";
-import { usePageAttributes } from "../lib/usePageAttributes";
+import { WithHead } from "../components/WithHead";
 import { appName } from "../lib/constants";
+import { usePageAttributes } from "../lib/usePageAttributes";
 
 const Page: NextPage = () => {
   return (
