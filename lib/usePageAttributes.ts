@@ -8,6 +8,7 @@ import { pageAttribute as myip } from "../pages/myip";
 import { pageAttribute as password } from "../pages/password";
 import { pageAttribute as qrcode } from "../pages/qrcode";
 import { pageAttribute as uuid } from "../pages/uuid";
+import { pageAttribute as ulid } from "../pages/ulid";
 import { pageAttribute as decoji } from "../pages/decoji";
 
 export type PageAttribute = {
@@ -27,6 +28,7 @@ export function usePageAttributes(): PageAttribute[] {
     password,
     qrcode,
     uuid,
+    ulid,
     decoji,
   ];
 }
