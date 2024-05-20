@@ -8,8 +8,7 @@ import { pageAttribute as myip } from "../pages/myip";
 import { pageAttribute as password } from "../pages/password";
 import { pageAttribute as qrcode } from "../pages/qrcode";
 import { pageAttribute as sortKeys } from "../pages/sort-keys";
-import { pageAttribute as uuid } from "../pages/uuid";
-import { pageAttribute as ulid } from "../pages/ulid";
+import { pageAttribute as generateIds } from "../pages/generate-ids";
 
 export type PageAttribute = {
   title: string;
@@ -19,5 +18,5 @@ export type PageAttribute = {
 };
 
 export function usePageAttributes(): PageAttribute[] {
-  return [jsonYaml, sortKeys, encodeDecode, jwt, myip, password, qrcode, uuid, ulid, decoji];
+  return [jsonYaml, sortKeys, encodeDecode, jwt, myip, password, qrcode, generateIds, decoji];
 }
