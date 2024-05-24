@@ -50,10 +50,7 @@ const Page: NextPage = () => {
 
   return (
     <WithHead {...pageAttribute}>
-      <Button
-        startIcon={<RefreshIcon />}
-        onClick={() => Promise.all([refetchIpv6or4(), refetchIpv4()])}
-      >
+      <Button startIcon={<RefreshIcon />} onClick={() => Promise.all([refetchIpv6or4(), refetchIpv4()])}>
         Refetch
       </Button>
       <Grid container spacing={2}>
