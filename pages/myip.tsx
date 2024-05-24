@@ -50,7 +50,10 @@ const Page: NextPage = () => {
 
   return (
     <WithHead {...pageAttribute}>
-      <Button startIcon={<RefreshIcon />} onClick={() => Promise.all([refetchIpv6or4(), refetchIpv4()])}>
+      <Button
+        startIcon={<RefreshIcon />}
+        onClick={() => Promise.all([refetchIpv6or4(), refetchIpv4()])}
+      >
         Refetch
       </Button>
       <Grid container spacing={2}>
@@ -59,15 +62,10 @@ const Page: NextPage = () => {
             disabled
             label="IPv6 or IPv4"
             value={(() => {
-              if (isLoadingIpv6or4) {
-                return "Loading...";
-              } else if (isFetchingIpv6or4) {
-                return "Fetching...";
-              } else if (errorIpv6or4) {
-                return (errorIpv6or4 as Error)?.toString();
-              } else {
-                return ipv6or4 ?? "";
-              }
+              if (isLoadingIpv6or4) return "Loading...";
+              if (isFetchingIpv6or4) return "Fetching...";
+              if (errorIpv6or4) return (errorIpv6or4 as Error)?.toString();
+              return ipv6or4 ?? "";
             })()}
             error={!!errorIpv6or4}
           />
@@ -77,15 +75,10 @@ const Page: NextPage = () => {
             disabled
             label="IPv4"
             value={(() => {
-              if (isLoadingIpv4) {
-                return "Loading...";
-              } else if (isFetchingIpv4) {
-                return "Fetching...";
-              } else if (errorIpv4) {
-                return (errorIpv4 as Error)?.toString();
-              } else {
-                return ipv4 ?? "";
-              }
+              if (isLoadingIpv4) return "Loading...";
+              if (isFetchingIpv4) return "Fetching...";
+              if (errorIpv4) return (errorIpv4 as Error)?.toString();
+              return ipv4 ?? "";
             })()}
             error={!!errorIpv4}
           />
