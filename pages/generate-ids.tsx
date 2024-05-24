@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { useState } from "react";
-import { v4 as uuid } from "uuid";
 import { ulid } from "ulid";
+import { v4 as uuid } from "uuid";
 
 import NumbersIcon from "@mui/icons-material/Numbers";
 import RefreshIcon from "@mui/icons-material/Refresh";
@@ -45,7 +45,10 @@ const Page: NextPage = () => {
     <WithHead {...pageAttribute}>
       <Grid container spacing={2} alignItems="center">
         <Grid item>
-          <Button startIcon={<RefreshIcon />} onClick={() => setIds(generate(idType))}>
+          <Button
+            startIcon={<RefreshIcon />}
+            onClick={() => setIds(generate(idType))}
+          >
             Refresh
           </Button>
         </Grid>
@@ -72,12 +75,12 @@ const Page: NextPage = () => {
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
           {ids.slice(0, count / 2).map((id, i) => (
-            <CodeTextField disabled value={id} key={i} />
+            <CodeTextField disabled value={id} key={id} />
           ))}
         </Grid>
         <Grid item xs={12} md={6}>
           {ids.slice(count / 2).map((id, i) => (
-            <CodeTextField disabled value={id} key={i + count / 2} />
+            <CodeTextField disabled value={id} key={id} />
           ))}
         </Grid>
       </Grid>

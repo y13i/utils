@@ -29,33 +29,38 @@ const count = 20;
 const minLength = 4;
 const maxLength = 200;
 
-const types = ["numeric", "distinguishable", "alphanumeric", "ascii-printable"] as const;
+const types = [
+  "numeric",
+  "distinguishable",
+  "alphanumeric",
+  "ascii-printable",
+] as const;
 
-const generate = (options: Options) => new Array(count).fill("").map(() => cryptoRandomString(options));
+const generate = (options: Options) =>
+  new Array(count).fill("").map(() => cryptoRandomString(options));
 
 const defaultLength = 32;
 const defaultPasswordType = types[2];
 
 const Page: NextPage = () => {
   const [length, setLength] = useState(defaultLength);
-  const [passwordType, setPasswordType] = useState<(typeof types)[number]>(defaultPasswordType);
+  const [passwordType, setPasswordType] =
+    useState<(typeof types)[number]>(defaultPasswordType);
 
-  const [passwords, setPasswords] = useState(generate({ type: passwordType, length }));
+  const [passwords, setPasswords] = useState(
+    generate({ type: passwordType, length })
+  );
 
   const setPasswordsDebounced = useDebouncedCallback(
     (options: Options) => setPasswords(generate(options)),
-    debounceWait,
+    debounceWait
   );
 
   const handleWheelEvent: WheelEventHandler = (event) => {
     const newLength = (() => {
-      if (event.deltaY < 0) {
-        return Math.max(length - 1, minLength);
-      } else if (event.deltaY > 0) {
-        return Math.min(length + 1, maxLength);
-      } else {
-        return length;
-      }
+      if (event.deltaY < 0) return Math.max(length - 1, minLength);
+      if (event.deltaY > 0) return Math.min(length + 1, maxLength);
+      return length;
     })();
 
     setLength(newLength);
@@ -66,7 +71,12 @@ const Page: NextPage = () => {
     <WithHead {...pageAttribute}>
       <Grid container spacing={2} alignItems="center">
         <Grid item>
-          <Button startIcon={<RefreshIcon />} onClick={() => setPasswords(generate({ type: passwordType, length }))}>
+          <Button
+            startIcon={<RefreshIcon />}
+            onClick={() =>
+              setPasswords(generate({ type: passwordType, length }))
+            }
+          >
             Refresh
           </Button>
         </Grid>
@@ -115,7 +125,11 @@ const Page: NextPage = () => {
                   onChange={(event) => {
                     const newLength = Number.parseInt(event.target.value, 10);
 
-                    if (isNaN(newLength) || newLength < minLength || newLength > maxLength) {
+                    if (
+                      Number.isNaN(newLength) ||
+                      newLength < minLength ||
+                      newLength > maxLength
+                    ) {
                       return;
                     }
 
@@ -153,12 +167,12 @@ const Page: NextPage = () => {
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
           {passwords.slice(0, count / 2).map((password, i) => (
-            <CodeTextField disabled value={password} key={i} />
+            <CodeTextField disabled value={password} key={password} />
           ))}
         </Grid>
         <Grid item xs={12} md={6}>
           {passwords.slice(count / 2).map((password, i) => (
-            <CodeTextField disabled value={password} key={i + count / 2} />
+            <CodeTextField disabled value={password} key={password} />
           ))}
         </Grid>
       </Grid>
