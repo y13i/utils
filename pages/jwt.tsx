@@ -1,5 +1,10 @@
 import { JsonViewer } from "@textea/json-viewer";
-import { type JWTPayload, type ProtectedHeaderParameters, decodeJwt, decodeProtectedHeader } from "jose";
+import {
+  type JWTPayload,
+  type ProtectedHeaderParameters,
+  decodeJwt,
+  decodeProtectedHeader,
+} from "jose";
 import type { NextPage } from "next";
 import { useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
@@ -65,7 +70,11 @@ const Page: NextPage = () => {
           <Typography variant="h6" component="h2" gutterBottom>
             Payload
           </Typography>
-          <JsonViewer rootName={false} quotesOnKeys={false} value={typeof payload === "object" ? payload : {}} />
+          <JsonViewer
+            rootName={false}
+            quotesOnKeys={false}
+            value={typeof payload === "object" ? payload : {}}
+          />
         </Grid>
       </Grid>
     </WithHead>

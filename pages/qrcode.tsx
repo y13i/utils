@@ -31,13 +31,15 @@ const Page: NextPage = () => {
   const [generateError, setGenerateError] = useState<Error | undefined>();
 
   const errorCorrectionLevels = ["low", "medium", "quartile", "high"] as const;
-  const [errorCorrectionLevel, setErrorCorrectionLevel] = useSearchParamState<(typeof errorCorrectionLevels)[number]>(
-    errorCorrectionLevels[1],
-    "c",
-  );
+  const [errorCorrectionLevel, setErrorCorrectionLevel] = useSearchParamState<
+    (typeof errorCorrectionLevels)[number]
+  >(errorCorrectionLevels[1], "c");
 
   const maskPatterns = ["auto", "0", "1", "2", "3", "4", "5", "6", "7"] as const;
-  const [maskPattern, setMaskPattern] = useSearchParamState<(typeof maskPatterns)[number]>(maskPatterns[0], "m");
+  const [maskPattern, setMaskPattern] = useSearchParamState<(typeof maskPatterns)[number]>(
+    maskPatterns[0],
+    "m",
+  );
 
   const generateDataUrl = useCallback(
     async (payload: string) => {
@@ -45,7 +47,9 @@ const Page: NextPage = () => {
         setDataUrl(
           await toDataURL(payload, {
             errorCorrectionLevel,
-            maskPattern: (maskPattern === "auto" ? undefined : Number.parseInt(maskPattern)) as QRCodeMaskPattern,
+            maskPattern: (maskPattern === "auto"
+              ? undefined
+              : Number.parseInt(maskPattern)) as QRCodeMaskPattern,
           }),
         );
         setGenerateError(undefined);
@@ -83,7 +87,9 @@ const Page: NextPage = () => {
               value={errorCorrectionLevel}
               label="Error Correction Level"
               onChange={(event) => {
-                setErrorCorrectionLevel(event.target.value as (typeof errorCorrectionLevels)[number]);
+                setErrorCorrectionLevel(
+                  event.target.value as (typeof errorCorrectionLevels)[number],
+                );
                 generateDebounced(payload);
               }}
             >

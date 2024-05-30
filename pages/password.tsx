@@ -29,12 +29,7 @@ const count = 20;
 const minLength = 4;
 const maxLength = 200;
 
-const types = [
-  "numeric",
-  "distinguishable",
-  "alphanumeric",
-  "ascii-printable",
-] as const;
+const types = ["numeric", "distinguishable", "alphanumeric", "ascii-printable"] as const;
 
 const generate = (options: Options) =>
   new Array(count).fill("").map(() => cryptoRandomString(options));
@@ -44,16 +39,13 @@ const defaultPasswordType = types[2];
 
 const Page: NextPage = () => {
   const [length, setLength] = useState(defaultLength);
-  const [passwordType, setPasswordType] =
-    useState<(typeof types)[number]>(defaultPasswordType);
+  const [passwordType, setPasswordType] = useState<(typeof types)[number]>(defaultPasswordType);
 
-  const [passwords, setPasswords] = useState(
-    generate({ type: passwordType, length })
-  );
+  const [passwords, setPasswords] = useState(generate({ type: passwordType, length }));
 
   const setPasswordsDebounced = useDebouncedCallback(
     (options: Options) => setPasswords(generate(options)),
-    debounceWait
+    debounceWait,
   );
 
   const handleWheelEvent: WheelEventHandler = (event) => {
@@ -73,9 +65,7 @@ const Page: NextPage = () => {
         <Grid item>
           <Button
             startIcon={<RefreshIcon />}
-            onClick={() =>
-              setPasswords(generate({ type: passwordType, length }))
-            }
+            onClick={() => setPasswords(generate({ type: passwordType, length }))}
           >
             Refresh
           </Button>
@@ -125,11 +115,7 @@ const Page: NextPage = () => {
                   onChange={(event) => {
                     const newLength = Number.parseInt(event.target.value, 10);
 
-                    if (
-                      Number.isNaN(newLength) ||
-                      newLength < minLength ||
-                      newLength > maxLength
-                    ) {
+                    if (Number.isNaN(newLength) || newLength < minLength || newLength > maxLength) {
                       return;
                     }
 

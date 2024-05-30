@@ -47,9 +47,11 @@ const Page: NextPage = () => {
       />
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
-          {decoratedEntries.slice(0, decoratedEntries.length / 2).map(([styleName, decorated], i) => (
-            <CodeTextField disabled label={styleName} value={decorated} key={styleName} />
-          ))}
+          {decoratedEntries
+            .slice(0, decoratedEntries.length / 2)
+            .map(([styleName, decorated], i) => (
+              <CodeTextField disabled label={styleName} value={decorated} key={styleName} />
+            ))}
         </Grid>
         <Grid item xs={12} md={6}>
           {decoratedEntries.slice(decoratedEntries.length / 2).map(([styleName, decorated], i) => (
