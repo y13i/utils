@@ -68,7 +68,9 @@ const Page: NextPage = () => {
     setData(sortedData);
 
     setOutput(
-      (option.format ?? format) === "YAML" ? dump(sortedData) : JSON.stringify(sortedData, ...jsonStringifyOptions),
+      (option.format ?? format) === "YAML"
+        ? dump(sortedData)
+        : JSON.stringify(sortedData, ...jsonStringifyOptions),
     );
   }
 
@@ -200,7 +202,11 @@ const Page: NextPage = () => {
           <CodeTextField multiline label="Output" value={output} disabled={true} />
         </Grid>
         <Grid item xs={12} md={6} xl={4}>
-          <JsonViewer rootName={false} quotesOnKeys={false} value={typeof data === "object" ? data : {}} />
+          <JsonViewer
+            rootName={false}
+            quotesOnKeys={false}
+            value={typeof data === "object" ? data : {}}
+          />
         </Grid>
       </Grid>
     </WithHead>

@@ -1,4 +1,4 @@
-import type { URLSearchParams as URLSearchParamsType } from "url";
+import type { URLSearchParams as URLSearchParamsType } from "node:url";
 import { Base64 } from "js-base64";
 import { compressAsync, decompressAsync } from "lzutf8";
 import { type Dispatch, type SetStateAction, type useCallback, useEffect, useState } from "react";
@@ -7,13 +7,17 @@ import { debounceWait } from "./constants";
 
 async function encode(data: any): Promise<string> {
   return new Promise((resolve, reject) => {
-    compressAsync(JSON.stringify(data), { outputEncoding: "BinaryString" }, (compressedDataJson, error) => {
-      if (error) {
-        reject(error);
-      } else {
-        resolve(Base64.encodeURI(compressedDataJson));
-      }
-    });
+    compressAsync(
+      JSON.stringify(data),
+      { outputEncoding: "BinaryString" },
+      (compressedDataJson, error) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(Base64.encodeURI(compressedDataJson));
+        }
+      },
+    );
   });
 }
 
@@ -40,28 +44,31 @@ export function useSearchParamState<S>(
 ): [S, Dispatch<SetStateAction<S>>] {
   const [state, setState] = useState<S>(initialState);
 
-  const setSerchParamDebounced = useDebouncedCallback(async (newState: S, searchParamName: string) => {
-    const url = new URL(window.location.href);
+  const setSerchParamDebounced = useDebouncedCallback(
+    async (newState: S, searchParamName: string) => {
+      const url = new URL(window.location.href);
 
-    const searchParams: URLSearchParamsType = await (async () => {
-      if (newState === undefined || newState === null) {
-        return url.searchParams;
-      } else {
+      const searchParams: URLSearchParamsType = await (async () => {
+        if (newState === undefined || newState === null) {
+          return url.searchParams;
+        }
         const encodedState = await encode(newState);
         const newSearchParams = new URLSearchParams(url.searchParams);
         newSearchParams.set(searchParamName, encodedState);
         return newSearchParams;
+      })();
+
+      const searchString = searchParams.toString();
+
+      const newUrl =
+        url.origin + url.pathname + (searchString.length > 0 ? `?${searchString}` : "");
+
+      if (newUrl.length < 2048) {
+        history.replaceState(undefined, "", newUrl);
       }
-    })();
-
-    const searchString = searchParams.toString();
-
-    const newUrl = url.origin + url.pathname + (searchString.length > 0 ? "?" + searchString : "");
-
-    if (newUrl.length < 2048) {
-      history.replaceState(undefined, "", newUrl);
-    }
-  }, debounceWait);
+    },
+    debounceWait,
+  );
 
   useEffect(() => {
     if (!window) return;

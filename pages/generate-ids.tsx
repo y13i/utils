@@ -45,10 +45,7 @@ const Page: NextPage = () => {
     <WithHead {...pageAttribute}>
       <Grid container spacing={2} alignItems="center">
         <Grid item>
-          <Button
-            startIcon={<RefreshIcon />}
-            onClick={() => setIds(generate(idType))}
-          >
+          <Button startIcon={<RefreshIcon />} onClick={() => setIds(generate(idType))}>
             Refresh
           </Button>
         </Grid>

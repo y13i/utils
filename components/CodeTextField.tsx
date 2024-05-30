@@ -29,14 +29,21 @@ export const CodeTextField: FC<TextFieldProps> = (props) => {
             fontFamily: "monospace",
           },
           endAdornment: (
-            <InputAdornment position="end" sx={props.multiline ? { alignSelf: "flex-start", mt: 1 } : {}}>
+            <InputAdornment
+              position="end"
+              sx={props.multiline ? { alignSelf: "flex-start", mt: 1 } : {}}
+            >
               <Tooltip
                 title={copied ? "Copied!" : "Copy to clipboard"}
                 onClose={() => setTimeout(() => setCopied(false), 250)}
               >
                 <IconButton
                   aria-label={copied ? "Copied!" : "Copy to clipboard"}
-                  onClick={() => navigator.clipboard.writeText(props?.value as string).then(() => setCopied(true))}
+                  onClick={() =>
+                    navigator.clipboard
+                      .writeText(props?.value as string)
+                      .then(() => setCopied(true))
+                  }
                   edge="end"
                 >
                   <ContentCopyIcon />
