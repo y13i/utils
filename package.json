@@ -35,7 +35,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.7.3",
     "@types/js-yaml": "4.0.9",
-    "@types/node": "20.13.0",
+    "@types/node": "20.14.0",
     "@types/qrcode": "1.5.5",
     "@types/react": "18.3.3",
     "@types/uuid": "9.0.8",
