@@ -12,10 +12,10 @@ export const Menu: FC<{ disableTooltip: boolean }> = (props) => (
   <List>
     {usePageAttributes().map((pageAttribute, i) => (
       <Link key={i} href={pageAttribute.path} passHref>
-        <ListItem button>
+        <ListItem>
           <Tooltip
             title={pageAttribute.title}
-            componentsProps={{
+            slotProps={{
               tooltip: {
                 sx: { ...(props.disableTooltip && { display: "none" }) },
               },
