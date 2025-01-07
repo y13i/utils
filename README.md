@@ -1,1 +1,1 @@
-# [Utils](https://utils.y13i.app/)
+# [Utils](https://utils.y13i.com/)
