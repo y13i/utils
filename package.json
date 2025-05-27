@@ -37,7 +37,7 @@
     "@types/js-yaml": "4.0.9",
     "@types/node": "22.15.21",
     "@types/qrcode": "1.5.5",
-    "@types/react": "18.3.22",
+    "@types/react": "18.3.23",
     "@types/uuid": "10.0.0",
     "typescript": "5.8.3"
   }
