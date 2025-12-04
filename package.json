@@ -13,7 +13,7 @@
     "@fontsource/roboto": "5.2.9",
     "@mui/icons-material": "6.5.0",
     "@mui/material": "6.5.0",
-    "@tanstack/react-query": "5.90.11",
+    "@tanstack/react-query": "5.90.12",
     "@textea/json-viewer": "4.0.1",
     "@y13i/sort-keys": "0.4.0",
     "crypto-random-string": "5.0.0",
