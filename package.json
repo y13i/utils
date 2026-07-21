@@ -18,7 +18,7 @@
     "@y13i/sort-keys": "0.4.0",
     "crypto-random-string": "5.0.0",
     "decoji": "0.2.0",
-    "jose": "6.2.3",
+    "jose": "6.2.4",
     "js-base64": "3.9.1",
     "js-yaml": "4.3.0",
     "json-url": "4.0.0",
