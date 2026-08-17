@@ -19,7 +19,7 @@
     "crypto-random-string": "5.0.0",
     "decoji": "0.2.0",
     "jose": "6.2.9",
-    "js-base64": "3.9.2",
+    "js-base64": "3.9.3",
     "js-yaml": "4.3.1",
     "json-url": "4.0.0",
     "ky": "1.14.3",
