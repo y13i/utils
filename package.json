@@ -33,7 +33,7 @@
     "uuid": "13.0.2"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.5.14",
+    "@biomejs/biome": "2.5.15",
     "@types/js-yaml": "4.0.9",
     "@types/node": "24.19.0",
     "@types/qrcode": "1.5.6",
